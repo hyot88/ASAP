@@ -1,0 +1,18 @@
+{{>layout/header}}
+    <h1>ASAP</h1>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                {{#nickname}}
+                    Logged in as: <span id="user">{{nickname}}</span>
+                    <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+                {{/nickname}}
+                {{^nickname}}
+                    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+                    <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+                    <a href="/oauth2/authorization/kakao" class="btn btn-warning active" role="button">Kakao Login</a>
+                {{/nickname}}
+            </div>
+        </div>
+    </div>
+{{>layout/footer}}

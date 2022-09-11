@@ -19,8 +19,8 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public ResponseCode update(String email, UserSaveRequestDto userSaveRequestDto) throws Exception {
-        User userByEmail = userRepository.findByEmail(email).orElse(null);
+    public ResponseCode update(String email, String registrationId, UserSaveRequestDto userSaveRequestDto) throws Exception {
+        User userByEmail = userRepository.findByEmailAndRegistrationId(email, registrationId).orElse(null);
 
         // Email이 검색되지 않을 경우
         if (userByEmail == null) {
@@ -40,6 +40,13 @@ public class UserService {
 
         httpSession.setAttribute("user", sessionUser);
         userByEmail.update(nickname);
+
+        return ResponseCode.COMM_S000;
+    }
+
+    @Transactional
+    public ResponseCode deleteAll() throws Exception {
+        userRepository.deleteAll();
 
         return ResponseCode.COMM_S000;
     }

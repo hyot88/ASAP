@@ -16,7 +16,8 @@ public class ApiResult<T> {
         this.data = data;
     }
 
-    public static ApiResult of() {
-        return new ApiResult(ResponseCode.COMM_E000);
+    public ApiResult(ResponseCode code) {
+        this.code = code.getCode();
+        this.message = code.getMessage();
     }
 }

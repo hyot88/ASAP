@@ -17,8 +17,11 @@ var main = {
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function(response) {
-            console.log(response);
-            window.location.href = '/';
+            if (response.code == 0) {
+                window.location.href = '/';
+            } else {
+                alert(response.message);
+            }
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

@@ -13,14 +13,16 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String name;
     private String email;
+    private String registrationId;
     private String picture;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String registrationId, String picture) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
         this.email = email;
+        this.registrationId = registrationId;
         this.picture = picture;
     }
 
@@ -38,6 +40,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
+                .registrationId("google")
                 .picture((String) attributes.get("picture"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
@@ -50,6 +53,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
+                .registrationId("naver")
                 .picture((String) response.get("profile_image"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
@@ -66,6 +70,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name(nickname)
                 .email(email)
+                .registrationId("kakao")
                 .picture(profile_image_url)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
@@ -76,6 +81,7 @@ public class OAuthAttributes {
         return User.builder()
                 .name(name)
                 .email(email)
+                .registrationId(registrationId)
                 .picture(picture)
                 .role(Role.GUEST)
                 .build();

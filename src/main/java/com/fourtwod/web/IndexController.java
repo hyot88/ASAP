@@ -22,7 +22,7 @@ public class IndexController {
                 return "redirect:/nickname";
             }
         } else {
-            return "index";
+            return "login";
         }
     }
 

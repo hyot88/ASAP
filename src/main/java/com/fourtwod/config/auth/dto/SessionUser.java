@@ -7,18 +7,16 @@ import java.io.Serializable;
 
 @Getter
 public class SessionUser implements Serializable {
-    private String name;
     private String email;
-    private String nickname;
     private String registrationId;
-    private String picture;
+    private String name;
+    private String nickname;
 
     public SessionUser(User user) {
+        this.email = user.getUserId().getEmail();
+        this.registrationId = user.getUserId().getRegistrationId();
         this.name = user.getName();
-        this.email = user.getEmail();
         this.nickname = user.getNickname();
-        this.registrationId = user.getRegistrationId();
-        this.picture = user.getPicture();
     }
 
     public void setNickname(String nickname) {

@@ -2,6 +2,7 @@ package com.fourtwod.service.user;
 
 import com.fourtwod.config.auth.dto.SessionUser;
 import com.fourtwod.domain.user.User;
+import com.fourtwod.domain.user.UserId;
 import com.fourtwod.domain.user.UserRepository;
 import com.fourtwod.web.dto.UserSaveRequestDto;
 import com.fourtwod.web.handler.ResponseCode;
@@ -20,7 +21,7 @@ public class UserService {
 
     @Transactional
     public ResponseCode update(String email, String registrationId, UserSaveRequestDto userSaveRequestDto) throws Exception {
-        User userByEmail = userRepository.findByEmailAndRegistrationId(email, registrationId).orElse(null);
+        User userByEmail = userRepository.findByUserId(UserId.builder().email(email).registrationId(registrationId).build()).orElse(null);
 
         // Email이 검색되지 않을 경우
         if (userByEmail == null) {
@@ -39,7 +40,7 @@ public class UserService {
         sessionUser.setNickname(nickname);
 
         httpSession.setAttribute("user", sessionUser);
-        userByEmail.update(nickname);
+        userByEmail.updateNickname(nickname);
 
         return ResponseCode.COMM_S000;
     }

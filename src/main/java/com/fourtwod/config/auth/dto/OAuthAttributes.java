@@ -2,6 +2,7 @@ package com.fourtwod.config.auth.dto;
 
 import com.fourtwod.domain.user.Role;
 import com.fourtwod.domain.user.User;
+import com.fourtwod.domain.user.UserId;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,16 +15,14 @@ public class OAuthAttributes {
     private String name;
     private String email;
     private String registrationId;
-    private String picture;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String registrationId, String picture) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String registrationId) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
-        this.name = name;
         this.email = email;
         this.registrationId = registrationId;
-        this.picture = picture;
+        this.name = name;
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
@@ -38,10 +37,9 @@ public class OAuthAttributes {
 
     private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
         return OAuthAttributes.builder()
-                .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .registrationId("google")
-                .picture((String) attributes.get("picture"))
+                .name((String) attributes.get("name"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -51,10 +49,9 @@ public class OAuthAttributes {
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
         return OAuthAttributes.builder()
-                .name((String) response.get("name"))
                 .email((String) response.get("email"))
                 .registrationId("naver")
-                .picture((String) response.get("profile_image"))
+                .name((String) response.get("name"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -65,13 +62,11 @@ public class OAuthAttributes {
         Map<String, Object> profile = (Map<String, Object>) kakaoAccountMap.get("profile");
         String nickname = (String) profile.get("nickname");
         String email = (String) kakaoAccountMap.get("email");
-        String profile_image_url = (String) profile.get("profile_image_url");
 
         return OAuthAttributes.builder()
-                .name(nickname)
                 .email(email)
                 .registrationId("kakao")
-                .picture(profile_image_url)
+                .name(nickname)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -79,10 +74,11 @@ public class OAuthAttributes {
 
     public User toEntity() {
         return User.builder()
+                .userId(UserId.builder()
+                        .email(email)
+                        .registrationId(registrationId)
+                        .build())
                 .name(name)
-                .email(email)
-                .registrationId(registrationId)
-                .picture(picture)
                 .role(Role.GUEST)
                 .build();
     }

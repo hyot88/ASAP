@@ -1,115 +1,157 @@
-* {
-  box-sizing: border-box;
+.223_482 { 
+	overflow:hidden;
 }
-body {
-  font-size: 14px;
+.e223_482 { 
+	background-color:rgba(22.31249962002039, 22.31249962002039, 22.31249962002039, 1);
+	width:414px;
+	height:896px;
+	position:absolute;
 }
-.v50_285 {
-  height: 844px;
-  background: rgba(22,22,22,1);
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
+.e223_489 { 
+	width:183px;
+	height:100px;
+	position:absolute;
+	left:116px;
+	top:259px;
+	background-image:url(/css/login/logo_real_1.png);
+	background-repeat:no-repeat;
+	background-size:cover;
 }
-.v53_322 {
-  width: 226px;
-  height: 40px;
-  background: rgba(255,255,255,1);
-  padding: 5px 61px;
-  margin: 10px;
-  opacity: 1;
-  position: absolute;
-  top: 485px;
-  left: 82px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  overflow: hidden;
+.e241_563 { 
+	background-color:rgba(255, 255, 255, 1);
+	width:220px;
+	height:40px;
+	position:absolute;
+	left:97px;
+	top:588px;
+	cursor:pointer;
+	border-top-left-radius:2px;
+	border-top-right-radius:2px;
+	border-bottom-left-radius:2px;
+	border-bottom-right-radius:2px;
 }
-.v53_313 {
-  width: 104px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 8px;
-  left: 61px;
-  font-family: Noto Sans KR;
-  font-weight: Bold;
-  font-size: 16px;
-  opacity: 1;
-  text-align: center;
+.ei241_563_241_515 { 
+	width:220px;
+	height:40px;
+	position:absolute;
+	left:0px;
+	top:0px;
 }
-.v53_325 {
-  width: 226px;
-  height: 40px;
-  background: rgba(255,255,255,1);
-  padding: 5px 61px;
-  margin: 10px;
-  opacity: 1;
-  position: absolute;
-  top: 544px;
-  left: 82px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  overflow: hidden;
+.ei241_563_241_516 { 
+	width:18px;
+	height:18px;
+	position:absolute;
+	left:8px;
+	top:11px;
+	background-image:url(/css/login/img_logo_google.png);
+	background-repeat:no-repeat;
+	background-size:cover;
 }
-.v53_326 {
-  width: 98px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 8px;
-  left: 64px;
-  font-family: Noto Sans KR;
-  font-weight: Bold;
-  font-size: 16px;
-  opacity: 1;
-  text-align: center;
+.ei241_563_241_517 { 
+	color:rgba(0, 0, 0, 0.7599999904632568);
+	width:138px;
+	height:19px;
+	position:absolute;
+	left:50px;
+	top:10.5px;
+	font-family:Roboto;
+	text-align:center;
+	font-size:16px;
+	letter-spacing:0;
 }
-.v53_327 {
-  width: 226px;
-  height: 40px;
-  background: rgba(255,255,255,1);
-  padding: 5px 61px;
-  margin: 10px;
-  opacity: 1;
-  position: absolute;
-  top: 603px;
-  left: 82px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  overflow: hidden;
+.e241_564 { 
+	background-color:rgba(3.000000058673322, 199.0000033378601, 90.00000223517418, 1);
+	width:220px;
+	height:40px;
+	position:absolute;
+	left:97px;
+	top:645px;
+	cursor:pointer;
+	border-top-left-radius:2px;
+	border-top-right-radius:2px;
+	border-bottom-left-radius:2px;
+	border-bottom-right-radius:2px;
 }
-.v53_328 {
-  width: 95px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 8px;
-  left: 66px;
-  font-family: Noto Sans KR;
-  font-weight: Bold;
-  font-size: 16px;
-  opacity: 1;
-  text-align: center;
+.ei241_564_241_532 { 
+	width:220px;
+	height:41px;
+	position:absolute;
+	left:0px;
+	top:-0.5px;
 }
-.v58_414 {
-  width: 183px;
-  height: 100px;
-  background: url("/css/login/v58_414.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  opacity: 1;
-  position: absolute;
-  top: 245px;
-  left: 103px;
-  overflow: hidden;
+.ei241_564_241_539 { 
+	width:18px;
+	height:18px;
+	position:absolute;
+	left:8px;
+	top:11.5px;
+	background-image:url(/css/login/img_logo_naver.png);
+	background-repeat:no-repeat;
+	background-size:cover;
 }
-.name {
-  color: #fff;
+.ei241_564_241_534 { 
+	color:rgba(255, 255, 255, 1);
+	width:107px;
+	height:20px;
+	position:absolute;
+	left:66px;
+	top:10.5px;
+	font-family:Noto Sans KR;
+	text-align:center;
+	font-size:14px;
+	letter-spacing:0;
+}
+.e241_565 { 
+	background-color:rgba(255, 235.0000011920929, 0, 1);
+	width:220px;
+	height:40px;
+	position:absolute;
+	left:97px;
+	top:702px;
+	cursor:pointer;
+	border-top-left-radius:2px;
+	border-top-right-radius:2px;
+	border-bottom-left-radius:2px;
+	border-bottom-right-radius:2px;
+}
+.ei241_565_241_542 { 
+	width:220px;
+	height:41px;
+	position:absolute;
+	left:0px;
+	top:-0.5px;
+}
+.ei241_565_241_548 { 
+	width:20px;
+	height:20px;
+	position:absolute;
+	left:8px;
+	top:10.5px;
+	background-image:url(/css/login/img_logo_kakao.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+.ei241_565_241_544 { 
+	color:rgba(60.00000022351742, 30.00000011175871, 30.00000011175871, 1);
+	width:107px;
+	height:20px;
+	position:absolute;
+	left:65px;
+	top:10.5px;
+	font-family:Noto Sans KR;
+	text-align:center;
+	font-size:14px;
+	letter-spacing:0;
+}
+.e256_485 { 
+	color:rgba(208.36508721113205, 205.68227916955948, 214.62499290704727, 0.699999988079071);
+	width:308px;
+	height:46px;
+	position:absolute;
+	left:53px;
+	top:770px;
+	font-family:Noto Sans KR;
+	text-align:center;
+	font-size:12px;
+	letter-spacing:0;
 }

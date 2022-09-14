@@ -33,8 +33,6 @@ public class IndexController {
                 return "redirect:/";
             }
 
-            model.addAttribute("userName2", user.getName());
-
             return "nickname";
         } else {
             return "redirect:/";

@@ -1,14 +1,27 @@
 var main = {
-    init : function () {
+    init: function () {
         var _this = this;
+
         $('#btn-nickname').on('click', function () {
             _this.save();
         });
+
+        $('#nickname').on('keydown', null, function() {
+            var $alertMessage = $('#alertMessage');
+            $alertMessage.text('');
+            $alertMessage.hide();
+        });
     },
-    save : function () {
-        var data = {
-            nickname: $('#nickname').val()
-        };
+    save: function () {
+        var _this = this;
+        var nickname = $('#nickname').val();
+        var rtnObj = _this.util.validationCheck(nickname);
+
+        if (!rtnObj.bFlag) {
+            _this.util.alertMessage(rtnObj.message);
+        }
+
+        var data = { nickname: nickname };
 
         $.ajax({
             type: 'POST',
@@ -20,11 +33,31 @@ var main = {
             if (response.code == 0) {
                 window.location.href = '/';
             } else {
-                alert(response.message);
+                _this.util.alertMessage(response.message);
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
+    },
+    util: {
+        validationCheck: function(nickname) {
+            if (nickname.length < 2 || nickname.length > 10) {
+                return {bFlag: false, message: '2자 이상 10자 이하로 입력해주세요.'};
+            }
+
+            const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
+
+            if (!regex.test(nickname)) {
+                return {bFlag: false, message: '한글,영문,숫자로 입력해주세요.'};
+            }
+
+            return {bFlag: true};
+        },
+        alertMessage: function(message) {
+            var $alertMessage = $('#alertMessage');
+            $alertMessage.text(message);
+            $alertMessage.show();
+        }
     }
 };
 

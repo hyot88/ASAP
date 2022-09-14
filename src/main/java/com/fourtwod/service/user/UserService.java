@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
 @Service
@@ -29,11 +30,22 @@ public class UserService {
         }
         
         String nickname = userSaveRequestDto.getNickname();
+
+        // 2자 이상 10자 이하 닉네임이 아닌 경우
+        if (nickname.length() < 2 || nickname.length() > 10) {
+            return ResponseCode.NICK_E001;
+        }
+        
+        // 한글,영문,숫자 닉네임이 아닌 경우
+        if (!Pattern.matches("^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$", nickname)) {
+            return ResponseCode.NICK_E002;
+        }
+
         User userByNickname = userRepository.findByNickname(nickname).orElse(null);
 
         // 닉네임이 중복될 경우
         if (userByNickname != null) {
-            return ResponseCode.COMM_E002;
+            return ResponseCode.NICK_E003;
         }
 
         SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");

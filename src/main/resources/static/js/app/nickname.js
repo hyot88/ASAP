@@ -6,7 +6,12 @@ var main = {
             _this.save();
         });
 
-        $('#nickname').on('keydown', null, function() {
+        $('#nickname').on('keyup', null, function() {
+            var nmLenght = $('#nickname').val().length;
+            var $nmLength = $('#nmLength');
+            $nmLength.text(nmLenght + " / 10");
+            $nmLength.css('color', 'white');
+
             var $alertMessage = $('#alertMessage');
             $alertMessage.text('');
             $alertMessage.hide();
@@ -25,13 +30,29 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/api/nickname',
+            url: '/api/nicknameCheck',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function(response) {
             if (response.code == 0) {
-                window.location.href = '/';
+                if (confirm('"' + nickname + '"(으)로 하시겠습니까?')) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/nickname',
+                        dataType: 'json',
+                        contentType:'application/json; charset=utf-8',
+                        data: JSON.stringify(data)
+                    }).done(function(response) {
+                        if (response.code == 0) {
+                            window.location.href = '/';
+                        } else {
+                            _this.util.alertMessage(response.message);
+                        }
+                    }).fail(function (error) {
+                        alert(JSON.stringify(error));
+                    });
+                }
             } else {
                 _this.util.alertMessage(response.message);
             }
@@ -54,6 +75,8 @@ var main = {
             return {bFlag: true};
         },
         alertMessage: function(message) {
+            $('#nmLength').css('color', 'red');
+
             var $alertMessage = $('#alertMessage');
             $alertMessage.text(message);
             $alertMessage.show();

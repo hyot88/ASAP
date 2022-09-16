@@ -18,6 +18,16 @@ public class UserApiController {
 
     private final UserService userService;
 
+    @PostMapping("/api/nicknameCheck")
+    public ApiResult nicknameCheck(@RequestBody UserSaveRequestDto userSaveRequestDto, @LoginUser SessionUser user) throws Exception {
+        if (user != null ) {
+            ResponseCode responseCode = userService.updateCheck(user.getEmail(), user.getRegistrationId(), userSaveRequestDto);
+            return new ApiResult<>(responseCode);
+        } else {
+            throw new Exception();
+        }
+    }
+
     @PostMapping("/api/nickname")
     public ApiResult nickname(@RequestBody UserSaveRequestDto userSaveRequestDto, @LoginUser SessionUser user) throws Exception {
         if (user != null ) {

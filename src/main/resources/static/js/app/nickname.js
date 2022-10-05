@@ -29,8 +29,8 @@ var main = {
         var data = { nickname: nickname };
 
         $.ajax({
-            type: 'POST',
-            url: '/api/nicknameCheck',
+            type: 'PATCH',
+            url: '/api/user/nickname/0',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -38,8 +38,8 @@ var main = {
             if (response.code == 0) {
                 if (confirm('"' + nickname + '"(으)로 하시겠습니까?')) {
                     $.ajax({
-                        type: 'POST',
-                        url: '/api/nickname',
+                        type: 'PATCH',
+                        url: '/api/user/nickname/1',
                         dataType: 'json',
                         contentType:'application/json; charset=utf-8',
                         data: JSON.stringify(data)

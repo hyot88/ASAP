@@ -9,7 +9,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-    //TODO: 사용하도록 예외처리 추가 필요
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResult> handleException(Exception e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResult(ResponseCode.COMM_E000));

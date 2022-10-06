@@ -1,5 +1,6 @@
 > # ASAP
 > ### 42D Project v1 - ASAP 서버
+> 운영 URL: [ASAP](http://ec2-52-78-162-180.ap-northeast-2.compute.amazonaws.com)
 
 ### 1. 사용 기술
   * Spring Boot 2.1.7
@@ -11,7 +12,7 @@
   * jquery, javascript
   * h2 database
 
-### 2. 현재까지 구현된 기능 ([ASAP Project v2](https://github.com/hyot88/ASAP-api) 개발로 인해 보류,,,)
+### 2. 현재까지 구현된 기능
 * **로그인 화면**
     * OAuth2 로그인 (google, naver, kakao)
 * **닉네임 체크 화면**

@@ -11,15 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Api(tags = {"프로파일 API"})
 @RestController
-//@ApiIgnore
 public class ProfileController {
 
     private final Environment env;
 
     @GetMapping("profile")
-    @ApiOperation(value = "현재 profile 조회", response = String.class)
     public String profile() {
         List<String> profiles = Arrays.asList(env.getActiveProfiles());
         List<String> realProfiles = Arrays.asList("real", "real1", "real2");

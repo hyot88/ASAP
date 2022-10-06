@@ -11,6 +11,9 @@
   * mustache
   * jquery, javascript
   * h2 database
+  * AWS (EC2, RDS, IAM, S3, CodeDeploy)
+  * Travis CI
+  * NGINX 1.20
 
 ### 2. 현재까지 구현된 기능
 * **로그인 화면**

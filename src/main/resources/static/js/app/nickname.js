@@ -3,18 +3,37 @@ var main = {
         var _this = this;
 
         $('#btn-nickname').on('click', function () {
+            var nickname = $('#nickname').val();
+
+            $('#alertNickName').text(nickname);
+            $('#nickname_popup').addClass('view');
+        });
+
+        $('#alertCancelBtn').on('click', function () {
+            $('#nickname_popup').removeClass('view');
+        });
+
+        $('#alertOkBtn').on('click', function () {
             _this.save();
         });
 
         $('#nickname').on('keyup', null, function() {
-            var nmLenght = $('#nickname').val().length;
+            var nickname = $('#nickname').val();
+            var nmLenght = nickname.length;
             var $nmLength = $('#nmLength');
-            $nmLength.text(nmLenght + " / 10");
-            $nmLength.css('color', 'white');
-
             var $alertMessage = $('#alertMessage');
-            $alertMessage.text('');
-            $alertMessage.hide();
+            var $startBtn = $('.start_btn')
+            var rtnObj = _this.util.validationCheck(nickname);
+
+            $nmLength.text(nmLenght);
+
+            if (!rtnObj.bFlag) {
+                _this.util.alertMessage(rtnObj.message);
+            } else {
+                $alertMessage.text('');
+                $nmLength.removeClass('caution')
+                $startBtn.addClass('active')
+            }
         });
     },
     save: function () {
@@ -36,23 +55,21 @@ var main = {
             data: JSON.stringify(data)
         }).done(function(response) {
             if (response.code == 0) {
-                if (confirm('"' + nickname + '"(으)로 하시겠습니까?')) {
-                    $.ajax({
-                        type: 'PATCH',
-                        url: '/api/user/nickname/1',
-                        dataType: 'json',
-                        contentType:'application/json; charset=utf-8',
-                        data: JSON.stringify(data)
-                    }).done(function(response) {
-                        if (response.code == 0) {
-                            window.location.href = '/';
-                        } else {
-                            _this.util.alertMessage(response.message);
-                        }
-                    }).fail(function (error) {
-                        alert(JSON.stringify(error));
-                    });
-                }
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/api/user/nickname/1',
+                    dataType: 'json',
+                    contentType:'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function(response) {
+                    if (response.code == 0) {
+                        window.location.href = '/';
+                    } else {
+                        _this.util.alertMessage(response.message);
+                    }
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
             } else {
                 _this.util.alertMessage(response.message);
             }
@@ -72,14 +89,16 @@ var main = {
                 return {bFlag: false, message: '한글,영문,숫자로 입력해주세요.'};
             }
 
-            return {bFlag: true};
+            return {bFlag: true, message: ''};
         },
         alertMessage: function(message) {
-            $('#nmLength').css('color', 'red');
-
+            var $nmLength = $('#nmLength');
+            var $startBtn = $('.start_btn')
             var $alertMessage = $('#alertMessage');
+
+            $nmLength.addClass('caution')
+            $startBtn.removeClass('active')
             $alertMessage.text(message);
-            $alertMessage.show();
         }
     }
 };

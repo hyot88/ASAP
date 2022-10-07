@@ -1,38 +1,33 @@
 {{>layout/headerNickname}}
-<div class=e256_495><span class="e256_539">ASAP 에서 사용하실<br>
-            닉네임을 입력해주세요. </span>
-    <div class=e256_548>
-        <div class="ei256_548_256_542"></div>
+<div class="container">
+    <div class="login">
+        <div class="nickNameSection">
+            <b>ASAP 에서 사용하실<br />닉네임을 입력해주세요.</b>
+            <div class="nickName">
+                <input type='text' id="nickname" maxlength="10" placeholder='2자 이상 입력해주세요.' />
+                <div class="layout_alert">
+                    <div id="alertMessage" class="text_alert"></div>
+                    <div class="count"><span id="nmLength">0</span> / 10</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottomSection">
+            <div id="btn-nickname" class="start_btn"></div>
+        </div>
     </div>
-    <div class=e256_717>
-        <div class=ei256_717_256_584>
-            <div class=ei256_717_256_582>
-                <div class="ei256_717_256_578"></div><input class="ei256_717_256_580" id="nickname" maxlength="10" placeholder="2자 이상 입력해주세요.">
+    <div class="nicknamePopupWrapper" id="nickname_popup" role="dialog" aria-modal="true" style="">
+        <div class="nicknamePopupWrap">
+            <div class="innerWrap">
+                <b id="alertNickName"></b> 님으로<br />시작 하시겠습니까?
+                <div class="bottomWrap">
+                    <div class="col">
+                        <img id="alertCancelBtn" src="/images/login/btn_cancel.png" width="134" height="41" />
+                    </div>
+                    <div class="col">
+                        <img id="alertOkBtn" src="/images/login/btn_ok.png" width="134" height="41" />
+                    </div>
+                </div>
             </div>
-            <div class="ei256_717_256_577"></div>
-        </div>
-        <div class=ei256_717_256_590><span id="alertMessage" class="ei256_717_256_579"></span><span id="nmLength" class="ei256_717_256_581">0 / 10</span></div>
-    </div>
-    <button id="btn-nickname" class=e256_742><span class="ei256_742_256_734">ASAP 하게 시작하기 !</span></button>
-    <div class=e256_504>
-        <div class=ei256_504_1347_15910>
-            <div class="ei256_504_1347_17684"></div>
-        </div>
-        <div class=ei256_504_839_7251>
-            <div class=ei256_504_839_7252><span class="ei256_504_839_7252_839_7108">9:41</span></div>
-        </div>
-        <div class=ei256_504_839_7253>
-            <div class=ei256_504_1015_8559>
-                <div class="ei256_504_1015_8559_1015_6220"></div>
-                <div class="ei256_504_1015_8559_1015_6221"></div>
-                <div class="ei256_504_1015_8559_1015_6222"></div>
-            </div>
-            <div class=ei256_504_839_7258>
-                <div class="ei256_504_839_7259"></div>
-                <div class="ei256_504_839_7260"></div>
-                <div class="ei256_504_839_7261"></div>
-            </div>
-            <div class="ei256_504_839_7262"></div>
         </div>
     </div>
 </div>

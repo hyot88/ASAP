@@ -1,21 +1,23 @@
 {{>layout/headerLogin}}
-<div class=e223_482>
-    <div class="e223_489"></div>
-    <div class=e241_563 onclick="location.href='/oauth2/authorization/google'">
-        <div class=ei241_563_241_515>
-            <div class="ei241_563_241_516"></div><span class="ei241_563_241_517">Sign in with Google</span>
+<div class="container">
+    <div class="login">
+        <div class="topSection">
+            <img src="/images/index/logo.png" width="183" height="100" />
+        </div>
+        <div class="bottomSection">
+            <div class="loginButton">
+                <img src="/images/login/google.png" width="220" height="40" onclick="location.href='/oauth2/authorization/google'" />
+            </div>
+            <div class="loginButton">
+                <img src="/images/login/kakao.png" width="220" height="40" onclick="location.href='/oauth2/authorization/naver'" />
+            </div>
+            <div class="loginButton">
+                <img src="/images/login/naver.png" width="220" height="40" onclick="location.href='/oauth2/authorization/kakao'" />
+            </div>
+            <p class="agreement">
+                SNS 로그인(회원가입) 시 이용약관 및 <br /> 이용약관에 동의하게 됩니다.
+            </p>
         </div>
     </div>
-    <div class=e241_564 onclick="location.href='/oauth2/authorization/naver'">
-        <div class=ei241_564_241_532>
-            <div class="ei241_564_241_539"></div><span class="ei241_564_241_534">네이버로 시작하기</span>
-        </div>
-    </div>
-    <div class=e241_565 onclick="location.href='/oauth2/authorization/kakao'">
-        <div class=ei241_565_241_542>
-            <div class="ei241_565_241_548"></div><span class="ei241_565_241_544">카카오로 시작하기</span>
-        </div>
-    </div><span class="e256_485">SNS 로그인(회원가입) 시 이용약관 및
-            개인정보처리방침에 동의하게 됩니다.</span>
 </div>
 {{>layout/footerLogin}}

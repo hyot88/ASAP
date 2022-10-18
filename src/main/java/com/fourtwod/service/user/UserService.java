@@ -4,7 +4,6 @@ import com.fourtwod.config.auth.dto.SessionUser;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
 import com.fourtwod.domain.user.UserRepository;
-import com.fourtwod.web.dto.UserDto;
 import com.fourtwod.web.handler.ResponseCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

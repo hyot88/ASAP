@@ -1,6 +1,7 @@
 package com.fourtwod.domain.user;
 
 import com.fourtwod.domain.BaseTimeEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

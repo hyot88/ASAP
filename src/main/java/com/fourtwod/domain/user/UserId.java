@@ -3,6 +3,7 @@ package com.fourtwod.domain.user;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @Embeddable
+@ToString
 public class UserId implements Serializable {
 
     @Column

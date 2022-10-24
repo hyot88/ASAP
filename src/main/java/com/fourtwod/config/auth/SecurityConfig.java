@@ -19,8 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/nmReset", "/profile").permitAll()
-                    .antMatchers("/api/v1/**").hasRole(Role.USER.name())
+                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/nmReset", "/profile"
+                            , "/swagger-ui.html", "/v2/api-docs", "/webjars/**", "/swagger-resources/**", "/favicon.ico", "/csrf"
+                            , "/api/user/nickname/**").permitAll()
+                    .antMatchers("/api/mission/**").hasRole(Role.USER.name())
                     .anyRequest().authenticated()
                 .and()
                     .logout()
@@ -32,4 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .loginPage("/");
     }
+
+
 }

@@ -20,15 +20,23 @@ public class User extends BaseTimeEntity {
     @Column
     private String nickname;
 
+    @Column(nullable = false)
+    private int tier;
+
+    @Column(nullable = false)
+    private int tierPoint;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
     @Builder
-    public User(UserId userId, String name, String nickname, Role role) {
+    public User(UserId userId, String name, String nickname, int tier, int tierPoint, Role role) {
         this.userId = userId;
         this.name = name;
         this.nickname = nickname;
+        this.tier = tier;
+        this.tierPoint = tierPoint;
         this.role = role;
     }
 
@@ -40,6 +48,10 @@ public class User extends BaseTimeEntity {
 
     public User updateNickname(String nickname) {
         this.nickname = nickname;
+
+        if (this.role.equals(Role.GUEST)) {
+            this.role = Role.USER;
+        }
 
         return this;
     }

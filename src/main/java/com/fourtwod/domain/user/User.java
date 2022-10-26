@@ -42,17 +42,11 @@ public class User extends BaseTimeEntity {
 
     public User updateName(String name) {
         this.name = name;
-
         return this;
     }
 
     public User updateNickname(String nickname) {
         this.nickname = nickname;
-
-        if (this.role.equals(Role.GUEST)) {
-            this.role = Role.USER;
-        }
-
         return this;
     }
 

@@ -3,7 +3,10 @@ buildscript {
         springBootVersion = '2.1.7.RELEASE'
     }
     repositories {
-        mavenCentral()
+        /*mavenCentral()*/
+        maven {
+            url "https://lab-dev-nexus.inpark.kr/repository/maven-central"
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -14,12 +17,16 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+//apply plugin: file("libs/querydsl-plugin-1.0.10.jar")
 
 group 'com.fourtwo'
 version '1.0.1-SNAPSHOT-' + new Date().format("yyyyMMddHHmmss")
 
 repositories {
-    mavenCentral()
+    /*mavenCentral()*/
+    maven {
+        url "https://lab-dev-nexus.inpark.kr/repository/maven-central"
+    }
 }
 
 dependencies {
@@ -47,4 +54,7 @@ dependencies {
 
     implementation("io.springfox:springfox-swagger-ui:2.9.2")
     implementation("io.springfox:springfox-swagger2:2.9.2")
+
+    implementation(files("libs/querydsl-jpa-5.0.0.jar"))
+    implementation(files("libs/querydsl-apt-5.0.0.jar"))
 }

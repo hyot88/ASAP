@@ -10,9 +10,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 @RunWith(SpringRunner.class)
@@ -38,7 +38,7 @@ public class MissionRepositoryTest {
                         .build())
                 .name("tester")
                 .nickname("테스트123123")
-                .role(Role.GUEST)
+                .role(Role.USER)
                 .build());
 
         Mission mission = missionRepository.save(Mission.builder()
@@ -48,7 +48,7 @@ public class MissionRepositoryTest {
 
         missionDetailRepository.save(MissionDetail.builder()
                 .missionDetailId(MissionDetailId.builder()
-                        .missionDetailId(123l)
+                        .missionDetailId(mission.getMissionId())
                         .date("20221009")
                         .build())
                 .afternoon(0)
@@ -77,5 +77,15 @@ public class MissionRepositoryTest {
 
         System.out.println("2. 미션 상세 검색 결과");
         System.out.println(missionDetail);
+    }
+
+    @Test
+    public void test2() {
+        System.out.println("뭐야?");
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate.format(DateTimeFormatter.BASIC_ISO_DATE));
+        localDate = localDate.plusDays(1);
+        System.out.println(localDate.format(DateTimeFormatter.BASIC_ISO_DATE));
+
     }
 }

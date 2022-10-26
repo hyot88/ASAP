@@ -21,6 +21,7 @@ public class MissionDetail extends BaseTimeEntity {
     private int night;
 
     @ManyToOne
+    @MapsId("missionDetailId")
     @JoinColumn(name = "mission_id")
     private Mission mission;
 

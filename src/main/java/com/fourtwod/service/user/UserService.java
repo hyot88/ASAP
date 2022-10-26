@@ -35,19 +35,19 @@ public class UserService {
 
         // 2자 이상 10자 이하 닉네임이 아닌 경우
         if (nickname.length() < 2 || nickname.length() > 10) {
-            return ResponseCode.NICK_E001;
+            return ResponseCode.NICK_E000;
         }
 
         // 한글,영문,숫자 닉네임이 아닌 경우
         if (!Pattern.matches("^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$", nickname)) {
-            return ResponseCode.NICK_E002;
+            return ResponseCode.NICK_E001;
         }
 
         User userByNickname = userRepository.findByNickname(nickname).orElse(null);
 
         // 닉네임이 중복될 경우
         if (userByNickname != null) {
-            return ResponseCode.NICK_E003;
+            return ResponseCode.NICK_E002;
         }
 
         // 사용할 수 없는 로그인 수단인 경우

@@ -13,10 +13,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @ToString
+@SequenceGenerator(
+        name = "MISSION_SEQ_GENERATOR"
+        , sequenceName = "MISSION_SEQ"
+        , allocationSize = 1
+)
 public class Mission extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MISSION_SEQ_GENERATOR")
     private Long missionId;
 
     @Column(nullable = false)

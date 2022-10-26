@@ -79,7 +79,7 @@ public class OAuthAttributes {
                         .registrationId(registrationId)
                         .build())
                 .name(name)
-                .role(Role.GUEST)
+                .role(Role.USER)
                 .build();
     }
 }

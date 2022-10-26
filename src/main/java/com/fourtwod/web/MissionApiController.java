@@ -6,11 +6,11 @@ import com.fourtwod.service.mission.MissionService;
 import com.fourtwod.web.handler.ApiResult;
 import com.fourtwod.web.handler.ResponseCode;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = {"미션 API"})
@@ -26,6 +26,21 @@ public class MissionApiController {
     public ApiResult selectMissionInProgress(@ApiIgnore @LoginUser SessionUser user) throws Exception {
         if (user != null ) {
             ResponseCode responseCode = missionService.selectMissionInProgress(user);
+            return new ApiResult<>(responseCode);
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @PostMapping("/{missionType}")
+    @ApiOperation(value = "미션 생성", response = ApiResult.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "missionType", value = "1: 1 Day\n3: 3 Day\n5: 5 Day\n7: 7 Day", required = true
+                    , dataType = "int", paramType = "path", example = "1")
+    })
+    public ApiResult createMission(@PathVariable int missionType, @ApiIgnore @LoginUser SessionUser user) throws Exception {
+        if (user != null ) {
+            ResponseCode responseCode = missionService.createMission(missionType, user);
             return new ApiResult<>(responseCode);
         } else {
             throw new Exception();

@@ -1,18 +1,17 @@
 package com.fourtwod.domain.mission;
 
-import com.fourtwod.domain.user.Role;
-import com.fourtwod.domain.user.User;
-import com.fourtwod.domain.user.UserId;
-import com.fourtwod.domain.user.UserRepository;
+import com.fourtwod.domain.user.*;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import javax.persistence.EntityManager;
+import java.util.List;
 
 
 @RunWith(SpringRunner.class)
@@ -28,9 +27,15 @@ public class MissionRepositoryTest {
     @Autowired
     private MissionDetailRepository missionDetailRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
+    private JPAQueryFactory jpaQueryFactory;
+
     @Before
     public void before() {
-        System.out.println("비포 시작");
+        jpaQueryFactory = new JPAQueryFactory(entityManager);
+
         User user = userRepository.save(User.builder()
                 .userId(UserId.builder()
                         .email("test@test.com")
@@ -55,7 +60,6 @@ public class MissionRepositoryTest {
                 .night(0)
                 .mission(mission)
                 .build());
-        System.out.println("비포 종료");
     }
 
     @Test
@@ -80,12 +84,20 @@ public class MissionRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void test2() {
-        System.out.println("뭐야?");
-        LocalDate localDate = LocalDate.now();
-        System.out.println(localDate.format(DateTimeFormatter.BASIC_ISO_DATE));
-        localDate = localDate.plusDays(1);
-        System.out.println(localDate.format(DateTimeFormatter.BASIC_ISO_DATE));
+        QUser user = QUser.user;
+        QMission mission = QMission.mission;
+        QMissionDetail missionDetail = QMissionDetail.missionDetail;
 
+        List<MissionDetail> list = jpaQueryFactory.selectFrom(missionDetail)
+                .innerJoin(mission)
+                    .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
+                .rightJoin(user)
+                    .on(mission.user.userId.eq(user.userId))
+                .where(user.userId.email.eq("test@test.com"))
+                .fetch();
+
+        System.out.println(list);
     }
 }

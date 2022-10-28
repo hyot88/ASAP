@@ -2,15 +2,18 @@ package com.fourtwod.service.mission;
 
 import com.fourtwod.config.auth.dto.SessionUser;
 import com.fourtwod.domain.mission.*;
+import com.fourtwod.domain.user.QUser;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
 import com.fourtwod.web.handler.ResponseCode;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -18,10 +21,24 @@ public class MissionService {
 
     private final MissionRepository missionRepository;
     private final MissionDetailRepository missionDetailRepository;
+    private final JPAQueryFactory jpaQueryFactory;
 
     @Transactional
-    public ResponseCode selectMissionInProgress(SessionUser user) {
-        return ResponseCode.COMM_S000;
+    public List<MissionDetail> selectMissionInProgress(SessionUser sessionUser) {
+        QUser user = QUser.user;
+        QMission mission = QMission.mission;
+        QMissionDetail missionDetail = QMissionDetail.missionDetail;
+
+        List<MissionDetail> list = jpaQueryFactory.selectFrom(missionDetail)
+                .innerJoin(mission)
+                    .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
+                .rightJoin(user)
+                    .on(mission.user.userId.eq(user.userId))
+                .where(user.userId.email.eq(sessionUser.getEmail())
+                        .and(user.userId.registrationId.eq(sessionUser.getRegistrationId())))
+                .fetch();
+
+        return list;
     }
 
     @Transactional

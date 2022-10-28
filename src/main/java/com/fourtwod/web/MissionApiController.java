@@ -2,6 +2,7 @@ package com.fourtwod.web;
 
 import com.fourtwod.config.auth.LoginUser;
 import com.fourtwod.config.auth.dto.SessionUser;
+import com.fourtwod.domain.mission.MissionDetail;
 import com.fourtwod.service.mission.MissionService;
 import com.fourtwod.web.handler.ApiResult;
 import com.fourtwod.web.handler.ResponseCode;
@@ -12,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 @Api(tags = {"미션 API"})
 @RequiredArgsConstructor
@@ -25,8 +28,8 @@ public class MissionApiController {
     @ApiOperation(value = "진행중인 미션 조회", response = ApiResult.class)
     public ApiResult selectMissionInProgress(@ApiIgnore @LoginUser SessionUser user) throws Exception {
         if (user != null ) {
-            ResponseCode responseCode = missionService.selectMissionInProgress(user);
-            return new ApiResult<>(responseCode);
+            List<MissionDetail> list = missionService.selectMissionInProgress(user);
+            return new ApiResult<>(list);
         } else {
             throw new Exception();
         }

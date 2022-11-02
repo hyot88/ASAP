@@ -5,6 +5,8 @@ import com.fourtwod.domain.mission.*;
 import com.fourtwod.domain.user.QUser;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
+import com.fourtwod.web.dto.MissionDto;
+import com.fourtwod.web.handler.ApiResult;
 import com.fourtwod.web.handler.ResponseCode;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -24,46 +27,85 @@ public class MissionService {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Transactional
-    public List<MissionDetail> selectMissionInProgress(SessionUser sessionUser) {
+    public MissionDto selectMissionInProgress(SessionUser sessionUser) {
         QUser user = QUser.user;
         QMission mission = QMission.mission;
         QMissionDetail missionDetail = QMissionDetail.missionDetail;
 
+        // 미션 조회
         List<MissionDetail> list = jpaQueryFactory.selectFrom(missionDetail)
-                .innerJoin(mission)
+                .join(mission)
                     .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
-                .rightJoin(user)
+                .join(user)
                     .on(mission.user.userId.eq(user.userId))
                 .where(user.userId.email.eq(sessionUser.getEmail())
-                        .and(user.userId.registrationId.eq(sessionUser.getRegistrationId())))
+                        .and(user.userId.registrationId.eq(sessionUser.getRegistrationId()))
+                        .and(mission.proceeding.eq(1)))
                 .fetch();
 
-        return list;
+        // 응답 dto
+        MissionDto missionDto = MissionDto.builder()
+                .missionType(-1)
+                .detail(new ArrayList<>())
+                .build();
+
+        list.forEach(tmpDetail -> {
+            if (tmpDetail != null) {
+                if (missionDto.getMissionType() == -1) {
+                    missionDto.setMissionType(tmpDetail.getMission().getMissionType());
+                }
+
+                missionDto.getDetail().add(MissionDto.Detail.builder()
+                        .date(tmpDetail.getMissionDetailId().getDate())
+                        .afternoon(tmpDetail.getAfternoon())
+                        .night(tmpDetail.getNight())
+                        .build());
+            }
+        });
+
+        return missionDto;
     }
 
     @Transactional
-    public ResponseCode createMission(int missionType, SessionUser user) {
+    public ApiResult createMission(int missionType, SessionUser sessionUser) {
         // 미션 타입 체크
         switch (missionType) {
             case 1: case 3: case 5: case 7: break;
-            default: return ResponseCode.MISS_E000;
+            default: return new ApiResult<>(ResponseCode.MISS_E000);
+        }
+
+        User user = User.builder()
+                .userId(UserId.builder()
+                        .email(sessionUser.getEmail())
+                        .registrationId(sessionUser.getRegistrationId())
+                        .build())
+                .build();
+
+        // 진행중 미션 여부 체크
+        Mission missionInProgress = missionRepository.findByUserAndProceeding(user, 1).orElse(null);
+
+        if (missionInProgress != null) {
+            return new ApiResult<>(ResponseCode.MISS_E001);
         }
 
         // 미션 생성
         Mission mission = missionRepository.save(Mission.builder()
                 .missionType(missionType)
-                .user(User.builder()
-                        .userId(UserId.builder()
-                                .email(user.getEmail())
-                                .registrationId(user.getRegistrationId())
-                                .build())
-                        .build())
+                .proceeding(1)
+                .user(user)
                 .build());
+
+        List<MissionDto.Detail> detailList = new ArrayList<>();
+        // 응답 dto
+        MissionDto missionDto = MissionDto.builder()
+                .missionType(missionType)
+                .detail(detailList)
+                .build();
 
         LocalDate localDate = LocalDate.now();
 
-        // 미션 디테일 생성
         for (int i = 0; i < missionType; i++) {
+            // 미션 디테일 생성
             String strLocalDate = localDate.plusDays(i).format(DateTimeFormatter.BASIC_ISO_DATE);
             MissionDetail missionDetail = missionDetailRepository.save(MissionDetail.builder()
                     .missionDetailId(MissionDetailId.builder()
@@ -74,8 +116,14 @@ public class MissionService {
                     .night(0)
                     .mission(mission)
                     .build());
+
+            detailList.add(MissionDto.Detail.builder()
+                    .date(missionDetail.getMissionDetailId().getDate())
+                    .afternoon(missionDetail.getAfternoon())
+                    .night(missionDetail.getNight())
+                    .build());
         }
 
-        return ResponseCode.COMM_S000;
+        return new ApiResult<>(missionDto);
     }
 }

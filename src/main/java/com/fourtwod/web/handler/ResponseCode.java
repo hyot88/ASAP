@@ -16,7 +16,8 @@ public enum ResponseCode {
     NICK_E002(2002, "중복된 닉네임입니다."),
 
     // 미션
-    MISS_E000(3000, "생성 가능한 미션 Day가 아닙니다.");
+    MISS_E000(3000, "생성 가능한 미션 Day가 아닙니다."),
+    MISS_E001(3001, "진행중인 미션이 있습니다.");
 
     private int code;
     private String message;

@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface MissionRepository extends JpaRepository<Mission, Long> {
 
     @EntityGraph(attributePaths = {"user"})
-    Optional<Mission> findByUser(User user);
+    Optional<Mission> findByUserAndProceeding(User user, int proceeding);
 }

@@ -27,6 +27,9 @@ public class Mission extends BaseTimeEntity {
     @Column(nullable = false)
     private int missionType;
 
+    @Column(nullable = false)
+    private int proceeding;
+
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "email")
@@ -34,9 +37,10 @@ public class Mission extends BaseTimeEntity {
     private User user;
 
     @Builder
-    public Mission(Long missionId, int missionType, User user) {
+    public Mission(Long missionId, int missionType, int proceeding, User user) {
         this.missionId = missionId;
         this.missionType = missionType;
+        this.proceeding = proceeding;
         this.user = user;
     }
 }

@@ -65,12 +65,12 @@ public class MissionRepositoryTest {
     @Test
     public void test() {
         System.out.println("1. 미션 검색");
-        Mission mission = missionRepository.findByUser(User.builder()
+        Mission mission = missionRepository.findByUserAndProceeding(User.builder()
                 .userId(UserId.builder()
                         .email("test@test.com")
                         .registrationId("google")
                         .build())
-                .build())
+                .build(), 1)
                 .orElse(null);
         
         System.out.println("1. 미션 검색 결과");
@@ -100,4 +100,7 @@ public class MissionRepositoryTest {
 
         System.out.println(list);
     }
+
+    @Test
+    public void test3() {}
 }

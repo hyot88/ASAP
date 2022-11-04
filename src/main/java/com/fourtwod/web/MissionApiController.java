@@ -5,6 +5,7 @@ import com.fourtwod.config.auth.dto.SessionUser;
 import com.fourtwod.service.mission.MissionService;
 import com.fourtwod.web.dto.MissionDto;
 import com.fourtwod.web.handler.ApiResult;
+import com.fourtwod.web.handler.ResponseCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -47,17 +48,16 @@ public class MissionApiController {
         }
     }
 
-    @PostMapping("/{date}/{time}")
+    @PatchMapping("/{date}/{time}")
     @ApiOperation(value = "Took 던지기", response = ApiResult.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "missionType", value = "1: 1 Day\n3: 3 Day\n5: 5 Day\n7: 7 Day", required = true
-                    , dataType = "int", paramType = "path", example = "1")
+            @ApiImplicitParam(name = "date", value = "YYYYMMDD", required = true, dataType = "string", paramType = "path")
+            , @ApiImplicitParam(name = "time", value = "오전(0), 오후(1)", required = true, dataType = "int", paramType = "path", example = "0")
     })
     public ApiResult tookEvent(@PathVariable String date, @PathVariable int time, @ApiIgnore @LoginUser SessionUser user) throws Exception {
         if (user != null ) {
-            /*ApiResult apiResult = missionService.tookEvent(date, time, user);
-            return apiResult;*/
-            return null;
+            ResponseCode responseCode = missionService.tookEvent(date, time, user);
+            return new ApiResult<>(responseCode);
         } else {
             throw new Exception();
         }

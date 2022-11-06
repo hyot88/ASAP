@@ -56,7 +56,7 @@ public class UserApiController {
 
     @GetMapping("/reset")
     @ApiOperation(value = "[임시] DB 초기화", response = ApiResult.class)
-    public ApiResult reset() throws Exception {
+    public ApiResult reset() {
         userService.reset();
         return new ApiResult<>(ResponseCode.COMM_S000);
     }

@@ -39,8 +39,25 @@ public class UserApiController {
         }
     }
 
-    @GetMapping("/nmReset")
-    public ApiResult nmReset() throws Exception {
-        return new ApiResult<>(userService.deleteAll());
+    @GetMapping("/rank/{rankType}")
+    @ApiOperation(value = "랭크 리스트 조회", response = ApiResult.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "rankType", value = "전체 랭크(0), 진행중인 미션 랭크(1)", required = true
+                    , dataType = "int", paramType = "path", example = "0")
+    })
+    public ApiResult selectRankList(@PathVariable int rankType, @ApiIgnore @LoginUser SessionUser user) throws Exception {
+        if (user != null) {
+            ApiResult apiResult = userService.selectRankList(rankType, user);
+            return apiResult;
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @GetMapping("/reset")
+    @ApiOperation(value = "[임시] DB 초기화", response = ApiResult.class)
+    public ApiResult reset() throws Exception {
+        userService.reset();
+        return new ApiResult<>(ResponseCode.COMM_S000);
     }
 }

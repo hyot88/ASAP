@@ -19,9 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/nmReset", "/profile"
-                            , "/swagger-ui.html", "/v2/api-docs", "/webjars/**", "/swagger-resources/**", "/favicon.ico", "/csrf"
-                            , "/api/user/nickname/**").permitAll()
+                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile", "/swagger-ui.html"
+                            , "/v2/api-docs", "/webjars/**", "/swagger-resources/**", "/favicon.ico", "/csrf"
+                            , "/api/user/nickname/**", "/api/user/reset").permitAll()
                     .antMatchers("/api/mission/**").hasRole(Role.USER.name())
                     .anyRequest().authenticated()
                 .and()

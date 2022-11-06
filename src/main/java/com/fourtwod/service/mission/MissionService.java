@@ -90,9 +90,12 @@ public class MissionService {
             return new ApiResult<>(ResponseCode.MISS_E000);
         }
 
+        LocalDate localDate = LocalDate.now();
+
         // 미션 생성
         Mission mission = missionRepository.save(Mission.builder()
                 .missionType(missionType)
+                .date(localDate.format(DateTimeFormatter.BASIC_ISO_DATE))
                 .proceeding(1)
                 .user(user)
                 .build());
@@ -103,8 +106,6 @@ public class MissionService {
                 .missionType(missionType)
                 .detail(detailList)
                 .build();
-
-        LocalDate localDate = LocalDate.now();
 
         for (int i = 0; i < missionType; i++) {
             // 미션 디테일 생성
@@ -147,13 +148,16 @@ public class MissionService {
         LocalDateTime startLimit;
         LocalDateTime endLimit;
 
-        if (time == 0) {
+        //TODO: 테스트를 위해 참여 가능 시간을 임시로 변경함
+        /*if (time == 0) {
             startLimit = localDateTime.withHour(6).withMinute(0).withSecond(0).withNano(0);
             endLimit = localDateTime.withHour(12).withSecond(0).withSecond(30).withNano(0);
         } else {
-            startLimit = localDateTime.withHour(15).withMinute(0).withSecond(0).withNano(0);
+            startLimit = localDateTime.withHour(18).withMinute(0).withSecond(0).withNano(0);
             endLimit = localDateTime.plusDays(1).withHour(0).withSecond(0).withSecond(30).withNano(0);
-        }
+        }*/
+        startLimit = localDateTime.minusDays(1);
+        endLimit = localDateTime.plusDays(1);
 
         if (!(localDateTime.isAfter(startLimit) && localDateTime.isBefore(endLimit))) {
             return ResponseCode.MISS_E001;
@@ -169,8 +173,7 @@ public class MissionService {
         }
 
         long lResult = jpaUpdateClause.where(missionDetail.eq(
-                JPAExpressions.select(missionDetail)
-                        .from(missionDetail)
+                JPAExpressions.selectFrom(missionDetail)
                         .join(mission)
                             .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
                         .join(user)

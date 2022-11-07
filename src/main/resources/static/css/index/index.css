@@ -92,8 +92,7 @@
 }
 
 .txt_zone_title {
-  color: var(--white);
-  font-family: var(--font-family-raleway);
+  color: white;
   font-size: 40px;
   font-style: italic;
   font-weight: 900;
@@ -104,15 +103,12 @@
 }
 
 .txt_zone_num {
-  color: var(--french-rose);
-  font-family: var(--font-family-raleway);
-  font-size: 40px;
   font-style: italic;
   font-weight: 900;
-  letter-spacing: -0.24px;
-  line-height: normal;
-  margin-top: -1px;
-  width: fit-content;
+  font-size: 25px;
+  line-height: 27px;
+  color: #FF4A8B;
+  margin-left: 5px;
 }
 
 .overlap-group1-1 {
@@ -849,4 +845,8 @@ rgb(255, 126, 151) 0%, rgb(255, 0, 48.57) 100%);
 
 .dark {
     filter: grayscale(100%);
+}
+
+.hide {
+    display: none;
 }

@@ -1,31 +1,29 @@
 {{>layout/headerNickname}}
-<div class="container">
-    <div class="login">
-        <div class="nickNameSection">
-            <b>ASAP 에서 사용하실<br />닉네임을 입력해주세요.</b>
-            <div class="nickName">
-                <input type='text' id="nickname" maxlength="10" placeholder='2자 이상 입력해주세요.' />
-                <div class="layout_alert">
-                    <div id="alertMessage" class="text_alert"></div>
-                    <div class="count"><span id="nmLength">0</span> / 10</div>
-                </div>
+<div class="login">
+    <div class="nickNameSection">
+        <b>ASAP 에서 사용하실<br/>닉네임을 입력해주세요.</b>
+        <div class="nickName">
+            <input type='text' id="nickname" maxlength="10" placeholder='2자 이상 입력해주세요.'/>
+            <div class="layout_alert">
+                <div id="alertMessage" class="text_alert"></div>
+                <div class="count"><span id="nmLength">0</span> / 10</div>
             </div>
         </div>
-        <div class="bottomSection">
-            <div id="btn-nickname" class="start_btn"></div>
-        </div>
     </div>
-    <div class="nicknamePopupWrapper" id="nickname_popup" role="dialog" aria-modal="true" style="">
-        <div class="nicknamePopupWrap">
-            <div class="innerWrap">
-                <b id="alertNickName"></b> 님으로<br />시작 하시겠습니까?
-                <div class="bottomWrap">
-                    <div class="col">
-                        <img id="alertCancelBtn" src="/images/login/btn_cancel.png" width="134" height="41" />
-                    </div>
-                    <div class="col">
-                        <img id="alertOkBtn" src="/images/login/btn_ok.png" width="134" height="41" />
-                    </div>
+    <div class="bottomSection">
+        <div id="btn-nickname" class="start_btn"></div>
+    </div>
+</div>
+<div class="nicknamePopupWrapper" id="nickname_popup" role="dialog" aria-modal="true" style="">
+    <div class="nicknamePopupWrap">
+        <div class="innerWrap">
+            <b id="alertNickName"></b> 님으로<br/>시작 하시겠습니까?
+            <div class="bottomWrap">
+                <div class="col">
+                    <img id="alertCancelBtn" src="/images/login/btn_cancel.png" width="134" height="41"/>
+                </div>
+                <div class="col">
+                    <img id="alertOkBtn" src="/images/login/btn_ok.png" width="134" height="41"/>
                 </div>
             </div>
         </div>

@@ -21,8 +21,8 @@ public enum ResponseCode {
     MISS_E001(3001, "참여 가능한 시간이 아닙니다."),
     MISS_E002(3002, "변경한 이력이 없습니다.");
 
-    private int code;
-    private String message;
+    private final int code;
+    private final String message;
 
     ResponseCode(int code, String message) {
         this.code = code;

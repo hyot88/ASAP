@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MissionRepositoryTest {

@@ -1,4 +1,4 @@
-package com.fourtwod.domain.user;
+package com.fourtwod.service;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -38,10 +38,6 @@ public enum TierInfo {
             Stream.of(values()).collect(Collectors.toMap(TierInfo::getTier, Function.identity())));
 
     public static TierInfo find(int tier) {
-        return Optional.ofNullable(codes.get(tier)).orElse(null);
-    }
-
-    public static TierInfo find(int tier, int minusTierPoint) {
         return Optional.ofNullable(codes.get(tier)).orElse(null);
     }
 }

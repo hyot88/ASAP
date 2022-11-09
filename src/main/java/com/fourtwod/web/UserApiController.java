@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = {"사용자 API"})
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
-@RestController
 public class UserApiController {
 
     private final UserService userService;

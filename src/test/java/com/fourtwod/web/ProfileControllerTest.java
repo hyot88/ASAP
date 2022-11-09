@@ -28,10 +28,4 @@ public class ProfileControllerTest {
         ResponseEntity<String> response = restTemplate.getForEntity("/profile", String.class);
         assertThat(response.getBody()).isEqualTo(expected);
     }
-
-    @Test
-    public void TierInfo테스트() throws Exception {
-        int userTier = 9;
-        int userTierPoint = 956;
-    }
 }

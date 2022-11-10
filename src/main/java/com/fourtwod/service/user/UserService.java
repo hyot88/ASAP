@@ -85,9 +85,9 @@ public class UserService {
 
     @Transactional
     public void reset() {
-        userRepository.deleteAll();
-        missionRepository.deleteAll();
         missionDetailRepository.deleteAll();
+        missionRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     public ApiResult selectRankList(int rankType, SessionUser sessionUser) {

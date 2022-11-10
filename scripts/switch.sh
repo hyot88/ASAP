@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ABSPATH=$(readlink -f $0)
-ABSDIR=$(dirname $ABSPATH)
+ABSDIR=$(dirname $ABSPATH)/${PROJECT_NAME}/scripts
 source ${ABSDIR}/profile.sh
 
 function switch_proxy() {

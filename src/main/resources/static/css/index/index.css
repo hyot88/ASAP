@@ -470,7 +470,7 @@
 }
 
 .mission_row {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: column;
   margin-top: 53px;
@@ -615,10 +615,11 @@
   font-weight: 900;
   font-size: 28px;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   letter-spacing: 0.0138462em;
   color: #FFFFFF;
   margin-left: 30px;
+  min-width: 340px
 }
 
 .quick {
@@ -769,14 +770,6 @@
 
 .mission_day.day7.finish {
     background-image: url("/images/index/mission_day_7_finish.png");
-}
-
-.mission_day.half.finish {
-    background-image: url("/images/index/mission_day_half_finish.png");
-}
-
-.mission_day.full.finish {
-    background-image: url("/images/index/mission_day_full_finish.png");
 }
 
 .mission_day.finish {

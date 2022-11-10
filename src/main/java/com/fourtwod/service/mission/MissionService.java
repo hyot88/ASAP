@@ -173,8 +173,9 @@ public class MissionService {
             jpaUpdateClause.set(missionDetail.night, 1);
         }
 
-        long lResult = jpaUpdateClause.where(missionDetail.eq(
-                JPAExpressions.selectFrom(missionDetail)
+        long lResult = jpaUpdateClause.where(missionDetail.missionDetailId.eq(
+                JPAExpressions.select(missionDetail.missionDetailId)
+                        .from(missionDetail)
                         .join(mission)
                             .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
                         .join(user)

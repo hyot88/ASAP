@@ -8,10 +8,12 @@ import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
 import com.fourtwod.domain.user.UserRepository;
 import com.fourtwod.web.dto.RankingDto;
+import com.fourtwod.web.dto.UserDto;
 import com.fourtwod.web.handler.ApiResult;
 import com.fourtwod.web.handler.ResponseCode;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -157,5 +159,24 @@ public class UserService {
         }
 
         return new ApiResult<>(rankDtoList);
+    }
+
+    public ApiResult selectUserInfo(SessionUser sessionUser) {
+        User user = userRepository.findByUserId(UserId.builder()
+                        .email(sessionUser.getEmail())
+                        .registrationId(sessionUser.getRegistrationId())
+                        .build())
+                .orElse(null);
+
+        if (user != null) {
+            return new ApiResult<>(UserDto.builder()
+                    .name(user.getName())
+                    .nickname(user.getNickname())
+                    .tier(user.getTier())
+                    .tierPoint(user.getTierPoint())
+                    .build());
+        } else {
+            return new ApiResult<>(ResponseCode.COMM_E001);
+        }
     }
 }

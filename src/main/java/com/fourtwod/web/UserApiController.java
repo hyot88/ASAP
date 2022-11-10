@@ -39,6 +39,17 @@ public class UserApiController {
         }
     }
 
+    @GetMapping("")
+    @ApiOperation(value = "유저 정보 조회", response = ApiResult.class)
+    public ApiResult selectUserInfo(@ApiIgnore @LoginUser SessionUser user) throws Exception {
+        if (user != null) {
+            ApiResult apiResult = userService.selectUserInfo(user);
+            return apiResult;
+        } else {
+            throw new Exception();
+        }
+    }
+
     @GetMapping("/rank/{rankType}")
     @ApiOperation(value = "랭크 리스트 조회", response = ApiResult.class)
     @ApiImplicitParams({

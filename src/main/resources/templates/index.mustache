@@ -1,17 +1,6 @@
 {{>layout/headerIndex}}
 <div class="x2-1-main-ing-o screen">
-    <div class="fixed_up">
-        <img class="logo_real" src="/images/index/logo.png" alt="logo_real"/>
-        <div class="btn_home">
-            <img class="icon_home" src="/images/index/home.png" alt="Icon_home"/>
-        </div>
-        <div class="btn_zone">
-            <img class="icon_home" src="/images/index/zone.png" alt="Icon_zone"/>
-        </div>
-        <div class="btn_mypage">
-            <img class="icon_home" src="/images/index/mypage.png" alt="Icon_mypage"/>
-        </div>
-    </div>
+    {{>layout/topMenu}}
     <div id="rankBox" class="rank_-box hide"></div>
     <div id="missionBox" class="hide"></div>
 </div>
@@ -44,9 +33,9 @@
                 </div>
                 <div class="overlap-group-1">
                     <div class="gage_in">
-                        <div class="box_filled" style="width: 67%"></div>
+                        <div class="box_filled" style="width: {tierPoint}%"></div>
                     </div>
-                    <div class="txt_exp_remain notosanskr-medium-white-10px">67 pt</div>
+                    <div class="txt_exp_remain notosanskr-medium-white-10px">{tierPoint} pt</div>
                     <div class="txt_exp_gained notosanskr-medium-white-10px">100 pt</div>
                 </div>
             </div>

@@ -12,6 +12,7 @@ public class UserDto {
 
     private String name;
     private String nickname;
-    private int tier;
+    private String tier;
+    private String nextTier;
     private int tierPoint;
 }

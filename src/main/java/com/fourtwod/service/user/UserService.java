@@ -7,6 +7,7 @@ import com.fourtwod.domain.mission.MissionRepository;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
 import com.fourtwod.domain.user.UserRepository;
+import com.fourtwod.service.TierInfo;
 import com.fourtwod.web.dto.RankingDto;
 import com.fourtwod.web.dto.UserDto;
 import com.fourtwod.web.handler.ApiResult;
@@ -168,11 +169,24 @@ public class UserService {
                         .build())
                 .orElse(null);
 
+        TierInfo tierInfo = TierInfo.find(user.getTier());
+        TierInfo nextTierInfo = TierInfo.find(tierInfo.getTier() + 1);
+
+        // TODO: 티어 챌린지 값 추가되면 바꿔주는걸루
+        if (nextTierInfo == TierInfo.none) {
+            nextTierInfo = TierInfo.gold1;
+        }
+
+        String nextTier = nextTierInfo.name();
+        String nextTierName = nextTier.substring(0, nextTier.length() - 1).toUpperCase();
+        String nextTierValue = nextTier.substring(nextTier.length() - 1);
+
         if (user != null) {
             return new ApiResult<>(UserDto.builder()
                     .name(user.getName())
                     .nickname(user.getNickname())
-                    .tier(user.getTier())
+                    .tier(tierInfo.name())
+                    .nextTier(nextTierName + " " + nextTierValue)
                     .tierPoint(user.getTierPoint())
                     .build());
         } else {

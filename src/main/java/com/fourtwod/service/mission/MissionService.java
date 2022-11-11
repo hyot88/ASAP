@@ -7,6 +7,7 @@ import com.fourtwod.domain.user.UserId;
 import com.fourtwod.web.dto.MissionDto;
 import com.fourtwod.web.handler.ApiResult;
 import com.fourtwod.web.handler.ResponseCode;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
@@ -24,8 +25,8 @@ import static com.fourtwod.domain.mission.QMission.mission;
 import static com.fourtwod.domain.mission.QMissionDetail.missionDetail;
 import static com.fourtwod.domain.user.QUser.user;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class MissionService {
 
     private final MissionRepository missionRepository;
@@ -172,8 +173,9 @@ public class MissionService {
             jpaUpdateClause.set(missionDetail.night, 1);
         }
 
-        long lResult = jpaUpdateClause.where(missionDetail.eq(
-                JPAExpressions.selectFrom(missionDetail)
+        long lResult = jpaUpdateClause.where(missionDetail.missionDetailId.eq(
+                JPAExpressions.select(missionDetail.missionDetailId)
+                        .from(missionDetail)
                         .join(mission)
                             .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
                         .join(user)
@@ -188,5 +190,27 @@ public class MissionService {
         }
 
         return ResponseCode.COMM_S000;
+    }
+
+    @Transactional
+    public List<Tuple> selectEndedMission() {
+        //TODO: 테스트를 위해서 임시로 yesterDay를 조정
+//        String yesterDay = LocalDate.now().minusDays(1).format(DateTimeFormatter.BASIC_ISO_DATE);
+        String yesterDay = LocalDate.now().plusDays(2).format(DateTimeFormatter.BASIC_ISO_DATE);
+
+        return jpaQueryFactory.select(missionDetail.missionDetailId.missionDetailId
+                    , missionDetail.afternoon.min().add(missionDetail.night.min()))
+                .from(missionDetail)
+                .join(mission)
+                    .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
+                .join(user)
+                    .on(mission.user.userId.eq(user.userId))
+                .groupBy(missionDetail.missionDetailId.missionDetailId)
+                .having(missionDetail.missionDetailId.date.max().eq(yesterDay))
+                .where(mission.proceeding.eq(1)).fetch();
+    }
+
+    public boolean checkForCompleMission(Mission mission) {
+        return false;
     }
 }

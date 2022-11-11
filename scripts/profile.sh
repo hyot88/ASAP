@@ -21,6 +21,8 @@ function find_idle_profile()
       IDLE_PROFILE=real1
     fi
 
+#    IDLE_PROFILE=real1
+
     echo "${IDLE_PROFILE}"
 }
 

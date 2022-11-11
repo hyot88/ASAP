@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = {"사용자 API"})
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
-@RestController
 public class UserApiController {
 
     private final UserService userService;
@@ -34,6 +34,17 @@ public class UserApiController {
         if (user != null ) {
             ResponseCode responseCode = userService.checkOrUpdateNickName(flag, userDto.getNickname(), user);
             return new ApiResult<>(responseCode);
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @GetMapping("")
+    @ApiOperation(value = "유저 정보 조회", response = ApiResult.class)
+    public ApiResult selectUserInfo(@ApiIgnore @LoginUser SessionUser user) throws Exception {
+        if (user != null) {
+            ApiResult apiResult = userService.selectUserInfo(user);
+            return apiResult;
         } else {
             throw new Exception();
         }

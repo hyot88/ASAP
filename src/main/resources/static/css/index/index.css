@@ -702,48 +702,20 @@
     text-align: center !important;
 }
 
-.mission_day {
-    background-size: cover;
+.mission_day.day1.finish img {
+    content: url("/images/index/mission/mission_day_1_finish.png");
 }
 
-.mission_day.day1 {
-    background-image: url("/images/index/mission/mission_day_1.png");
+.mission_day.day3.finish img {
+    content: url("/images/index/mission/mission_day_3_finish.png");
 }
 
-.mission_day.day3 {
-    background-image: url("/images/index/mission/mission_day_3.png");
+.mission_day.day5.finish img {
+    content: url("/images/index/mission/mission_day_5_finish.png");
 }
 
-.mission_day.day5 {
-    background-image: url("/images/index/mission/mission_day_5.png");
-}
-
-.mission_day.day7 {
-    background-image: url("/images/index/mission/mission_day_7.png");
-}
-
-.mission_day.half {
-    background-image: url("/images/index/mission/mission_day_half.png");
-}
-
-.mission_day.full {
-    background-image: url("/images/index/mission/mission_day_full.png");
-}
-
-.mission_day.day1.finish {
-    background-image: url("/images/index/mission/mission_day_1_finish.png");
-}
-
-.mission_day.day3.finish {
-    background-image: url("/images/index/mission/mission_day_3_finish.png");
-}
-
-.mission_day.day5.finish {
-    background-image: url("/images/index/mission/mission_day_5_finish.png");
-}
-
-.mission_day.day7.finish {
-    background-image: url("/images/index/mission/mission_day_7_finish.png");
+.mission_day.day7.finish img {
+    content: url("/images/index/mission/mission_day_7_finish.png");
 }
 
 .mission_day.finish {

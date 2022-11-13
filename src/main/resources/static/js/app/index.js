@@ -23,7 +23,7 @@ var main = {
                 Mustache.parse(template);
 
                 var data = {
-                     tier: info.tier || '',
+                     tier: info.tier || 'unranked',
                      nextTier: info.nextTier || '',
                      tierPoint: info.tierPoint || 0,
                      nickname: info.nickname || ''

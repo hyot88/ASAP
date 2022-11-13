@@ -31,8 +31,7 @@
   border: 4px solid;
   border-color: var(--white);
   border-radius: 6px;
-  box-shadow: 0px 1px 8px 6px 
-#ff2d5533;
+  box-shadow: 0px 1px 8px 6px #ff2d5533;
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -91,26 +90,6 @@
   width: fit-content;
 }
 
-.txt_zone_title {
-  color: white;
-  font-size: 40px;
-  font-style: italic;
-  font-weight: 900;
-  letter-spacing: -0.24px;
-  line-height: normal;
-  margin-top: -1px;
-  width: fit-content;
-}
-
-.txt_zone_num {
-  font-style: italic;
-  font-weight: 900;
-  font-size: 25px;
-  line-height: 27px;
-  color: #FF4A8B;
-  margin-left: 5px;
-}
-
 .overlap-group1-1 {
   align-items: flex-start;
   background-color: var(--asapgray-2);
@@ -148,7 +127,6 @@
 .txt_-container {
   align-items: flex-start;
   display: flex;
-  gap: 167px;
   height: 17px;
   min-width: 325px;
 }
@@ -161,22 +139,18 @@
 }
 
 .txt_next_zone {
-  align-items: center;
+  align-items: flex-end;
   border: 1px none;
   display: flex;
   gap: 2px;
   justify-content: flex-end;
-  width: fit-content;
+  width: 100%;
 }
 
 .master-3 {
   color: #FF4A8B;
-  font-family: var(--font-family-noto_sans_kr);
-  font-size: var(--font-size-m2);
   font-weight: 500;
   letter-spacing: -0.24px;
-  line-height: normal;
-  margin-top: -1px;
   text-align: right;
   width: fit-content;
 }
@@ -733,43 +707,43 @@
 }
 
 .mission_day.day1 {
-    background-image: url("/images/index/mission_day_1.png");
+    background-image: url("/images/index/mission/mission_day_1.png");
 }
 
 .mission_day.day3 {
-    background-image: url("/images/index/mission_day_3.png");
+    background-image: url("/images/index/mission/mission_day_3.png");
 }
 
 .mission_day.day5 {
-    background-image: url("/images/index/mission_day_5.png");
+    background-image: url("/images/index/mission/mission_day_5.png");
 }
 
 .mission_day.day7 {
-    background-image: url("/images/index/mission_day_7.png");
+    background-image: url("/images/index/mission/mission_day_7.png");
 }
 
 .mission_day.half {
-    background-image: url("/images/index/mission_day_half.png");
+    background-image: url("/images/index/mission/mission_day_half.png");
 }
 
 .mission_day.full {
-    background-image: url("/images/index/mission_day_full.png");
+    background-image: url("/images/index/mission/mission_day_full.png");
 }
 
 .mission_day.day1.finish {
-    background-image: url("/images/index/mission_day_1_finish.png");
+    background-image: url("/images/index/mission/mission_day_1_finish.png");
 }
 
 .mission_day.day3.finish {
-    background-image: url("/images/index/mission_day_3_finish.png");
+    background-image: url("/images/index/mission/mission_day_3_finish.png");
 }
 
 .mission_day.day5.finish {
-    background-image: url("/images/index/mission_day_5_finish.png");
+    background-image: url("/images/index/mission/mission_day_5_finish.png");
 }
 
 .mission_day.day7.finish {
-    background-image: url("/images/index/mission_day_7_finish.png");
+    background-image: url("/images/index/mission/mission_day_7_finish.png");
 }
 
 .mission_day.finish {

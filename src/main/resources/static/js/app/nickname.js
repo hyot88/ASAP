@@ -65,6 +65,7 @@ var main = {
                     if (response.code == 0) {
                         window.location.href = '/';
                     } else {
+                        $('#nickname_popup').removeClass('view');
                         _this.util.alertMessage(response.message);
                     }
                 }).fail(function (error) {

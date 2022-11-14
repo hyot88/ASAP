@@ -39,6 +39,9 @@ public class Mission extends BaseTimeEntity {
             , @JoinColumn(name = "registration_id")})
     private User user;
 
+    @OneToOne(mappedBy = "mission")
+    private MissionHistory missionHistory;
+
     @Builder
     public Mission(Long missionId, int missionType, String date, int proceeding, User user) {
         this.missionId = missionId;

@@ -194,20 +194,14 @@ public class MissionService {
 
     @Transactional
     public List<Tuple> selectEndedMission() {
-        //TODO: 테스트를 위해서 임시로 yesterDay를 조정
-//        String yesterDay = LocalDate.now().minusDays(1).format(DateTimeFormatter.BASIC_ISO_DATE);
-        String yesterDay = LocalDate.now().plusDays(2).format(DateTimeFormatter.BASIC_ISO_DATE);
-
-        return jpaQueryFactory.select(missionDetail.missionDetailId.missionDetailId
-                    , missionDetail.afternoon.min().add(missionDetail.night.min()))
+        return jpaQueryFactory.select(mission.missionId, mission.missionType, missionDetail.missionDetailId.date.max()
+                    , missionDetail.afternoon.add(missionDetail.night).sum())
                 .from(missionDetail)
                 .join(mission)
                     .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
-                .join(user)
-                    .on(mission.user.userId.eq(user.userId))
-                .groupBy(missionDetail.missionDetailId.missionDetailId)
-                .having(missionDetail.missionDetailId.date.max().eq(yesterDay))
-                .where(mission.proceeding.eq(1)).fetch();
+                .groupBy(mission.missionId, mission.missionType)
+                .where(mission.proceeding.eq(1))
+                .fetch();
     }
 
     public boolean checkForCompleMission(Mission mission) {

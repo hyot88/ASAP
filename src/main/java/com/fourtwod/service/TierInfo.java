@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,6 +15,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public enum TierInfo {
 
+    //TODO: none, unranked로 바꿔야함
     none(-1, 0, 0, 0),
     bronze4(0, 0, 99, 1f),
     bronze3(1, 100, 199, 1f),
@@ -38,7 +40,18 @@ public enum TierInfo {
     private static final Map<Integer, TierInfo> codes = Collections.unmodifiableMap(
             Stream.of(values()).collect(Collectors.toMap(TierInfo::getTier, Function.identity())));
 
-    public static TierInfo find(int tier) {
+    public static TierInfo findByTier(int tier) {
         return Optional.ofNullable(codes.get(tier)).orElse(TierInfo.none);
+    }
+
+    public static TierInfo findByTierPoint(int tierPoint) {
+        AtomicReference<TierInfo> tierInfo = new AtomicReference<>(TierInfo.none);
+        codes.forEach((tier, tmpTierInfo) -> {
+            if (tierPoint >= tmpTierInfo.getTierPointStart() && tierPoint <= tmpTierInfo.getTierPointEnd()) {
+                tierInfo.set(tmpTierInfo);
+            }
+        });
+
+        return tierInfo.get();
     }
 }

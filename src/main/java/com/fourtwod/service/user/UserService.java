@@ -14,7 +14,6 @@ import com.fourtwod.web.handler.ApiResult;
 import com.fourtwod.web.handler.ResponseCode;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -169,8 +168,8 @@ public class UserService {
                         .build())
                 .orElse(null);
 
-        TierInfo tierInfo = TierInfo.find(user.getTier());
-        TierInfo nextTierInfo = TierInfo.find(tierInfo.getTier() + 1);
+        TierInfo tierInfo = TierInfo.findByTier(user.getTier());
+        TierInfo nextTierInfo = TierInfo.findByTier(tierInfo.getTier() + 1);
 
         // TODO: 티어 챌린지 값 추가되면 바꿔주는걸루
         if (nextTierInfo == TierInfo.none) {
@@ -192,5 +191,11 @@ public class UserService {
         } else {
             return new ApiResult<>(ResponseCode.COMM_E001);
         }
+    }
+
+    public User selectUserInfo(long missionId) {
+        return jpaQueryFactory.selectFrom(user)
+                .join(mission).on(user.userId.eq(mission.user.userId))
+                .where(mission.missionId.eq(missionId)).fetchOne();
     }
 }

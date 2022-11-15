@@ -4,6 +4,14 @@ var main = {
 
         _this.getRankInfo()
         _this.getMission()
+
+        $('#alertCancelBtn').on('click', function () {
+            $('#mission_popup').removeClass('view');
+        });
+
+        $('#alertOkBtn').on('click', function () {
+            _this.setMission($('#missionDay').text());
+        });
     },
     proc : function () {
     },
@@ -66,7 +74,12 @@ var main = {
 
                 $('.mission_day').click(function (e) {
                     e.preventDefault()
-                    main.setMission($(this).attr('data-day'))
+
+                    var missionDay = $(this).attr('data-day');
+                    if (missionDay) {
+                      $('#missionDay').text(missionDay);
+                      $('#mission_popup').addClass('view');
+                    }
                 })
             } else {
                 _this.util.alertMessage(response.message);
@@ -76,7 +89,7 @@ var main = {
         });
     },
     setMission: function (missionType) {
-        if (missionType !== undefined && confirm(missionType + 'day Mission을 시작 하시겠습니까?')) {
+        if (missionType !== undefined && missionType.trim() !== '') {
             $.ajax({
                 type: 'POST',
                 url: 'api/mission/' + missionType,

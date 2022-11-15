@@ -1,83 +1,98 @@
 {{>layout/headerIndex}}
 <div class="x2-1-main-ing-o screen">
-    {{>layout/topMenu}}
-    <div id="rankBox" class="rank_-box hide"></div>
-    <div id="missionBox" class="hide"></div>
+  {{>layout/topMenu}}
+  <div id="rankBox" class="rank_-box hide"></div>
+  <div id="missionBox" class="hide"></div>
+</div>
+<div class="missionPopupWrapper" id="mission_popup" role="dialog" aria-modal="true" style="">
+  <div class="missionPopupWrap">
+    <div class="innerWrap">
+      <b id="missionDay"></b>day Mission을<br/>시작 하시겠습니까?
+      <div class="bottomWrap">
+        <div class="col">
+          <img id="alertCancelBtn" src="/images/login/btn_cancel.png" width="134" height="41"/>
+        </div>
+        <div class="col">
+          <img id="alertOkBtn" src="/images/login/btn_ok.png" width="134" height="41"/>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {{>layout/footerIndex}}
 
 <script type="text/template" id="rankBox-template">
-        <div class="default">
-            <div class="overlap-group-container">
-                <div class="overlap-group1-1">
-                    <div class="text-2">티어<br/>아이콘</div>
-                </div>
-                <div class="overlap-group2-1">
-                    <div class="txt_nickname">
-                        <div class="nickname">{nickname}</div>
-                    </div>
-                    <div class="layout_zone">
-                        <img src="/images/index/tier/{tier}.png" width="100%" />
-                    </div>
-                </div>
-            </div>
-            <div class="layout_exp">
-                <div class="txt_-container">
-                    <div class="txt_exp notosanskr-normal-white-12px">EXP</div>
-                    <div class="txt_next_zone">
-                        <div class="txt_next_zone-item notosanskr-normal-white-12px">다음 ZONE</div>
-                        <div class="master-3">&nbsp;{nextTier}</div>
-                        <div class="txt_next_zone-item notosanskr-normal-white-12px">까지</div>
-                    </div>
-                </div>
-                <div class="overlap-group-1">
-                    <div class="gage_in">
-                        <div class="box_filled" style="width: {tierPoint}%"></div>
-                    </div>
-                    <div class="txt_exp_remain notosanskr-medium-white-10px">{tierPoint} pt</div>
-                    <div class="txt_exp_gained notosanskr-medium-white-10px">100 pt</div>
-                </div>
-            </div>
+  <div class="default">
+    <div class="overlap-group-container">
+      <div class="overlap-group1-1">
+        <div class="text-2">티어<br/>아이콘</div>
+      </div>
+      <div class="overlap-group2-1">
+        <div class="txt_nickname">
+          <div class="nickname">{nickname}</div>
         </div>
+        <div class="layout_zone">
+          <img src="/images/index/tier/{tier}.png" width="100%"/>
+        </div>
+      </div>
+    </div>
+    <div class="layout_exp">
+      <div class="txt_-container">
+        <div class="txt_exp notosanskr-normal-white-12px">EXP</div>
+        <div class="txt_next_zone">
+          <div class="txt_next_zone-item notosanskr-normal-white-12px">다음 ZONE</div>
+          <div class="master-3">&nbsp;{nextTier}</div>
+          <div class="txt_next_zone-item notosanskr-normal-white-12px">까지</div>
+        </div>
+      </div>
+      <div class="overlap-group-1">
+        <div class="gage_in">
+          <div class="box_filled" style="width: {tierPoint}%"></div>
+        </div>
+        <div class="txt_exp_remain notosanskr-medium-white-10px">{tierPoint} pt</div>
+        <div class="txt_exp_gained notosanskr-medium-white-10px">100 pt</div>
+      </div>
+    </div>
+  </div>
 </script>
 
 <script type="text/template" id="noProgressMissionBox-template">
-    <div class="mission_row">
-        <div class="recently-added valign-text-bottom notosanskr-black-white-28px">Tick ㅡ</div>
-        <div class="flex-row">
-            <div class="flex-row-item mission_day day1" data-day="1">
-                <img src="/images/index/mission/mission_day_1.png" width="100%" />
-            </div>
-            <div class="flex-row-item mission_day day3" data-day="3">
-                <img src="/images/index/mission/mission_day_3.png" width="100%" />
-            </div>
-        </div>
+  <div class="mission_row">
+    <div class="recently-added valign-text-bottom notosanskr-black-white-28px">Tick ㅡ</div>
+    <div class="flex-row">
+      <div class="flex-row-item mission_day day1" data-day="1">
+        <img src="/images/index/mission/mission_day_1.png" width="100%"/>
+      </div>
+      <div class="flex-row-item mission_day day3" data-day="3">
+        <img src="/images/index/mission/mission_day_3.png" width="100%"/>
+      </div>
     </div>
-    <div class="mission_row">
-        <div class="recently-added valign-text-bottom notosanskr-black-white-28px">Quick ㅡ</div>
-        <div class="flex-row">
-            <div class="flex-row-item mission_day day5" data-day="5">
-                <img src="/images/index/mission/mission_day_5.png" width="100%" />
-            </div>
-            <div class="flex-row-item mission_day day7" data-day="7">
-                <img src="/images/index/mission/mission_day_7.png" width="100%" />
-            </div>
-        </div>
+  </div>
+  <div class="mission_row">
+    <div class="recently-added valign-text-bottom notosanskr-black-white-28px">Quick ㅡ</div>
+    <div class="flex-row">
+      <div class="flex-row-item mission_day day5" data-day="5">
+        <img src="/images/index/mission/mission_day_5.png" width="100%"/>
+      </div>
+      <div class="flex-row-item mission_day day7" data-day="7">
+        <img src="/images/index/mission/mission_day_7.png" width="100%"/>
+      </div>
     </div>
-    <div class="mission_row">
-        <div class="recently-added-1 valign-text-bottom">ㅡ Huick ㅡ</div>
-        <div class="flex-row">
-            <div class="flex-row-item mission_day half">
-                <img src="/images/index/mission/mission_day_half.png" width="100%" />
-            </div>
-            <div class="flex-row-item mission_day full">
-                <img src="/images/index/mission/mission_day_full.png" width="100%" />
-            </div>
-        </div>
+  </div>
+  <div class="mission_row">
+    <div class="recently-added-1 valign-text-bottom">ㅡ Huick ㅡ</div>
+    <div class="flex-row">
+      <div class="flex-row-item mission_day half">
+        <img src="/images/index/mission/mission_day_half.png" width="100%"/>
+      </div>
+      <div class="flex-row-item mission_day full">
+        <img src="/images/index/mission/mission_day_full.png" width="100%"/>
+      </div>
     </div>
+  </div>
 </script>
 
 
 <script type="text/template" id="progressMissionBox-template">
-    <div>진행중인 미션이 있다...</div>
+  <div>진행중인 미션이 있다...</div>
 </script>

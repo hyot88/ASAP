@@ -1,14 +1,14 @@
 package com.fourtwod.domain.mission;
 
 import com.fourtwod.domain.BaseTimeEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @ToString
 public class MissionHistory extends BaseTimeEntity {
@@ -17,7 +17,10 @@ public class MissionHistory extends BaseTimeEntity {
     private long missionId;
 
     @Column(nullable = false)
-    private String endDate;
+    private int missionType;
+
+    @Column(nullable = false)
+    private String date;
 
     @Column(nullable = false)
     private int successFlag;
@@ -26,10 +29,7 @@ public class MissionHistory extends BaseTimeEntity {
     private int changeTierPoint;
 
     @Column(nullable = false)
-    private int tier;
-
-    @Column(nullable = false)
-    private int tierPoint;
+    private int tookCount;
 
     @OneToOne
     @MapsId("missionId")

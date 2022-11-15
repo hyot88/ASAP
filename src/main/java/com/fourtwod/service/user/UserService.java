@@ -171,9 +171,9 @@ public class UserService {
         TierInfo tierInfo = TierInfo.findByTier(user.getTier());
         TierInfo nextTierInfo = TierInfo.findByTier(tierInfo.getTier() + 1);
 
-        // TODO: 티어 챌린지 값 추가되면 바꿔주는걸루
-        if (nextTierInfo == TierInfo.none) {
-            nextTierInfo = TierInfo.gold1;
+        // 다음 티어는 없으므로 최대 티어로 조정
+        if (nextTierInfo == TierInfo.unranked) {
+            nextTierInfo = TierInfo.master1;
         }
 
         String nextTier = nextTierInfo.name();

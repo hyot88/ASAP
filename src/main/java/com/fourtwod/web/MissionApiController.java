@@ -4,6 +4,7 @@ import com.fourtwod.config.auth.LoginUser;
 import com.fourtwod.config.auth.dto.SessionUser;
 import com.fourtwod.service.mission.MissionService;
 import com.fourtwod.web.dto.MissionDto;
+import com.fourtwod.web.dto.MissionHistoryDto;
 import com.fourtwod.web.handler.ApiResult;
 import com.fourtwod.web.handler.ResponseCode;
 import io.swagger.annotations.Api;
@@ -13,6 +14,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 @Api(tags = {"미션 API"})
 @RequiredArgsConstructor
@@ -58,6 +61,17 @@ public class MissionApiController {
         if (user != null ) {
             ResponseCode responseCode = missionService.tookEvent(date, time, user);
             return new ApiResult<>(responseCode);
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @GetMapping("/history")
+    @ApiOperation(value = "미션 히스토리 조회", response = ApiResult.class)
+    public ApiResult selectMissionHistory(@ApiIgnore @LoginUser SessionUser user) throws Exception {
+        if (user != null ) {
+            List<MissionHistoryDto> missionHistoryDtoList = missionService.selectMissionHistory(user);
+            return new ApiResult<>(missionHistoryDtoList);
         } else {
             throw new Exception();
         }

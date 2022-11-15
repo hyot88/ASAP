@@ -4,7 +4,9 @@ import com.fourtwod.config.auth.dto.SessionUser;
 import com.fourtwod.domain.mission.*;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
+import com.fourtwod.service.MissionInfo;
 import com.fourtwod.web.dto.MissionDto;
+import com.fourtwod.web.dto.MissionHistoryDto;
 import com.fourtwod.web.handler.ApiResult;
 import com.fourtwod.web.handler.ResponseCode;
 import com.querydsl.core.Tuple;
@@ -23,6 +25,7 @@ import java.util.List;
 
 import static com.fourtwod.domain.mission.QMission.mission;
 import static com.fourtwod.domain.mission.QMissionDetail.missionDetail;
+import static com.fourtwod.domain.mission.QMissionHistory.missionHistory;
 import static com.fourtwod.domain.user.QUser.user;
 
 @Service
@@ -31,6 +34,8 @@ public class MissionService {
 
     private final MissionRepository missionRepository;
     private final MissionDetailRepository missionDetailRepository;
+
+    private final MissionHistoryRepository missionHistoryRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
     @Transactional
@@ -98,6 +103,7 @@ public class MissionService {
                 .missionType(missionType)
                 .date(localDate.format(DateTimeFormatter.BASIC_ISO_DATE))
                 .proceeding(1)
+                .successFlag(0)
                 .user(user)
                 .build());
 
@@ -194,23 +200,58 @@ public class MissionService {
 
     @Transactional
     public List<Tuple> selectEndedMission() {
-        //TODO: 테스트를 위해서 임시로 yesterDay를 조정
-//        String yesterDay = LocalDate.now().minusDays(1).format(DateTimeFormatter.BASIC_ISO_DATE);
-        String yesterDay = LocalDate.now().plusDays(2).format(DateTimeFormatter.BASIC_ISO_DATE);
-
-        return jpaQueryFactory.select(missionDetail.missionDetailId.missionDetailId
-                    , missionDetail.afternoon.min().add(missionDetail.night.min()))
+        return jpaQueryFactory.select(mission.missionId, mission.missionType, missionDetail.missionDetailId.date.max()
+                    , missionDetail.afternoon.add(missionDetail.night).sum())
                 .from(missionDetail)
                 .join(mission)
                     .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
-                .join(user)
-                    .on(mission.user.userId.eq(user.userId))
-                .groupBy(missionDetail.missionDetailId.missionDetailId)
-                .having(missionDetail.missionDetailId.date.max().eq(yesterDay))
-                .where(mission.proceeding.eq(1)).fetch();
+                .groupBy(mission.missionId, mission.missionType)
+                .where(mission.proceeding.eq(1))
+                .fetch();
     }
 
-    public boolean checkForCompleMission(Mission mission) {
-        return false;
+    @Transactional
+    public void updateProceedingAndSuccessFlag(long missionId, int successFlag) {
+        jpaQueryFactory.update(mission)
+                .set(mission.proceeding, 0)
+                .set(mission.successFlag, successFlag)
+                .where(mission.missionId.eq(missionId)).execute();
+    }
+
+    @Transactional
+    public void saveMissionHistory(MissionHistory missionHistory) {
+        missionHistoryRepository.save(missionHistory);
+    }
+
+    public List<MissionHistoryDto> selectMissionHistory(SessionUser sessionUser) {
+        List<MissionHistoryDto> missionHistoryDtoList = new ArrayList<>();
+        List<MissionHistory> missionHistoryList = jpaQueryFactory.selectFrom(missionHistory)
+                .join(mission)
+                    .on(missionHistory.missionId.eq(mission.missionId))
+                .join(user)
+                    .on(mission.user.userId.eq(user.userId))
+                .where(user.userId.email.eq(sessionUser.getEmail())
+                        .and(user.userId.registrationId.eq(sessionUser.getRegistrationId())))
+                .orderBy(missionHistory.missionId.desc())
+                .limit(5)
+                .fetch();
+
+        missionHistoryList.forEach(missionHistory -> {
+            if (missionHistory != null) {
+                String strDate = missionHistory.getDate().substring(0, 4) + "-" + missionHistory.getDate().substring(4, 6)
+                        + "-" + missionHistory.getDate().substring(6, 8);
+                String[] arrMissionType = MissionInfo.find(missionHistory.getMissionType()).name().split("_");
+                String strMissionType = arrMissionType[0] + "(" + arrMissionType[1] + ")";
+
+                missionHistoryDtoList.add(MissionHistoryDto.builder()
+                        .date(strDate)
+                        .missionType(strMissionType)
+                        .tookCount(missionHistory.getTookCount())
+                        .changeTierPoint(missionHistory.getChangeTierPoint())
+                        .build());
+            }
+        });
+
+        return missionHistoryDtoList;
     }
 }

@@ -17,8 +17,8 @@ public class Scheduler {
         schedulerFacade.dailySchedule();
     }
 
-    // 매달 1일 0시 30분 0초
-    @Scheduled(cron = "0 0 0 1 * *")
+    // 매달 15일 0시 30분 0초
+    @Scheduled(cron = "0 30 0 15 * *")
     public void monthSchedule() {
         schedulerFacade.monthSchedule();
     }

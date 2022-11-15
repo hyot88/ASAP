@@ -54,5 +54,10 @@ public class User extends BaseTimeEntity {
         return this.role.getKey();
     }
 
+    public User updateTierInfo(int tier, int tierPoint) {
+        this.tier = tier;
+        this.tierPoint = tierPoint;
 
+        return this;
+    }
 }

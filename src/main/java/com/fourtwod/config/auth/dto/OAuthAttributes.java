@@ -79,6 +79,7 @@ public class OAuthAttributes {
                         .registrationId(registrationId)
                         .build())
                 .name(name)
+                .tier(-1)
                 .role(Role.USER)
                 .build();
     }

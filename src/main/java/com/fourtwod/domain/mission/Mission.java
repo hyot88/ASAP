@@ -33,18 +33,25 @@ public class Mission extends BaseTimeEntity {
     @Column(nullable = false)
     private int proceeding;
 
+    @Column(nullable = false)
+    private int successFlag;
+
     @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "email")
             , @JoinColumn(name = "registration_id")})
     private User user;
 
+    @OneToOne(mappedBy = "mission")
+    private MissionHistory missionHistory;
+
     @Builder
-    public Mission(Long missionId, int missionType, String date, int proceeding, User user) {
+    public Mission(Long missionId, int missionType, String date, int proceeding, int successFlag, User user) {
         this.missionId = missionId;
         this.missionType = missionType;
         this.date = date;
         this.proceeding = proceeding;
+        this.successFlag = successFlag;
         this.user = user;
     }
 }

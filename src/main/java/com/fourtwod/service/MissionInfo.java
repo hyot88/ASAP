@@ -14,12 +14,12 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public enum MissionInfo {
 
-    M_1Day(1, 10),
-    M_3Day(3, 60),
-    M_5Day(5, 150),
-    M_7Day(7, 280),
-    M_15Day(15, 100),
-    M_30Day(30, 300);
+    Tick_1Day(1, 10),
+    Tick_3Day(3, 60),
+    Quick_5Day(5, 150),
+    Quick_7Day(7, 280),
+    Huick_15Day(15, 100),
+    Huick_30Day(30, 300);
 
     private final int missionType;
     private final int rewardPoint;

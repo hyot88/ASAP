@@ -254,4 +254,19 @@ public class MissionService {
 
         return missionHistoryDtoList;
     }
+
+    public List<Tuple> selectLastMission(String lastMonthCondition, String thisMonthCondition) {
+        return jpaQueryFactory.select(user.userId, user.count())
+                .from(missionDetail)
+                .join(mission)
+                    .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))
+                .join(user)
+                    .on(mission.user.userId.eq(user.userId))
+                .groupBy(user.userId)
+                .where(mission.proceeding.eq(0)
+                        .and(mission.successFlag.eq(1))
+                        .and(missionDetail.missionDetailId.date.goe(lastMonthCondition))
+                        .and(missionDetail.missionDetailId.date.lt(thisMonthCondition)))
+                .fetch();
+    }
 }

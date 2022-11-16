@@ -2,7 +2,7 @@ package com.fourtwod.scheduler.facade;
 
 import com.fourtwod.domain.mission.MissionHistory;
 import com.fourtwod.domain.user.User;
-import com.fourtwod.domain.user.UserId;
+import com.fourtwod.domain.user.UserRepository;
 import com.fourtwod.service.MissionInfo;
 import com.fourtwod.service.TierInfo;
 import com.fourtwod.service.mission.MissionService;
@@ -26,6 +26,7 @@ public class SchedulerFacade {
 
     private final MissionService missionService;
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @SuppressWarnings("all")
     public void dailySchedule() {
@@ -75,7 +76,7 @@ public class SchedulerFacade {
                         afterTierRealPoint = beforeTierRealPoint + rewardPoint;
                     }
 
-                    // 티어 포인트의 최대 최소값을 조정
+                    // 티어 포인트의 최대/최소값을 조정
                     if (afterTierRealPoint < 0) {
                         afterTierRealPoint = 0;
                     }
@@ -91,16 +92,16 @@ public class SchedulerFacade {
                     TierInfo afterTierInfo = TierInfo.findByTierPoint(afterTierRealPoint);
                     user.updateTierInfo(afterTierInfo.getTier(), afterTierRealPoint - (afterTierRealPoint / 100 * 100));
 
+
                     // mission_history 저장
                     missionService.saveMissionHistory(MissionHistory.builder()
-                            .missionId(missionId)
                             .missionType(missionType)
                             .date(LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE))
                             .successFlag(successFlag)
                             .changeTierPoint(rewardPoint)
                             .tookCount(tookCount)
+                            .user(user)
                             .build());
-
                 }
             }
         });
@@ -118,18 +119,47 @@ public class SchedulerFacade {
         String lastMonth = String.format("%02d", lastLocalDate.getMonthValue());
         String lastMonthCondition = lastLocalDateYear + lastMonth + "01";
 
-        final int HUICK_HALF = 15;
-        final int HUICK_FULL = YearMonth.from(LocalDate.now().minusMonths(1)).lengthOfMonth();
+        final int HALF_DAYS = 15;
+        final int FULL_DAYS = YearMonth.from(LocalDate.now().minusMonths(1)).lengthOfMonth();
 
         List<Tuple> tupleList =  missionService.selectLastMission(lastMonthCondition, thisMonthCondition);
 
         tupleList.forEach(tuple -> {
             if (tuple != null) {
-                UserId userId = tuple.get(0, UserId.class);
-                int successCount = tuple.get(1, Integer.class);
+                User user = tuple.get(0, User.class);
+                int successCount = tuple.get(1, Long.class).intValue();
+                int beforeTierRealPoint = user.getTier() * 100 + user.getTierPoint();
+                int afterTierRealPoint;
+                int rewardPoint;
+                MissionInfo missionInfo;
 
-                System.out.println(userId);
-                System.out.println(successCount);
+                if (successCount >= HALF_DAYS) {
+                    // 한달 Full 미션 달성한 경우
+                    if (successCount == FULL_DAYS) {
+                        missionInfo = MissionInfo.Huick_30Day;
+                    // 15일 이상 미션 달성한 경우
+                    } else {
+                        missionInfo = MissionInfo.Huick_15Day;
+                    }
+
+                    rewardPoint = missionInfo.getRewardPoint();
+                    afterTierRealPoint = beforeTierRealPoint + rewardPoint;
+
+                    // tier, tierPoint 변경
+                    TierInfo afterTierInfo = TierInfo.findByTierPoint(afterTierRealPoint);
+                    user.updateTierInfo(afterTierInfo.getTier(), afterTierRealPoint - (afterTierRealPoint / 100 * 100));
+                    userRepository.save(user);
+
+                    // mission_history 저장
+                    missionService.saveMissionHistory(MissionHistory.builder()
+                            .missionType(missionInfo.getMissionType())
+                            .date(LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE))
+                            .successFlag(1)
+                            .changeTierPoint(rewardPoint)
+                            .tookCount(successCount * 2)
+                            .user(user)
+                            .build());
+                }
             }
         });
     }

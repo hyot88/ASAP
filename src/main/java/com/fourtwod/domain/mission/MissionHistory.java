@@ -1,6 +1,7 @@
 package com.fourtwod.domain.mission;
 
 import com.fourtwod.domain.BaseTimeEntity;
+import com.fourtwod.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +15,8 @@ import javax.persistence.*;
 public class MissionHistory extends BaseTimeEntity {
 
     @Id
-    private long missionId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long missionHistoryId;
 
     @Column(nullable = false)
     private int missionType;
@@ -31,8 +33,9 @@ public class MissionHistory extends BaseTimeEntity {
     @Column(nullable = false)
     private int tookCount;
 
-    @OneToOne
-    @MapsId("missionId")
-    @JoinColumn(name = "mission_id")
-    private Mission mission;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "email")
+            , @JoinColumn(name = "registration_id")})
+    private User user;
 }

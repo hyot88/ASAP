@@ -67,6 +67,7 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:${queryDslVersion}")
     implementation("com.querydsl:querydsl-apt:${queryDslVersion}")
     implementation("com.querydsl:querydsl-core:${queryDslVersion}")
+    implementation("com.querydsl:querydsl-sql:${queryDslVersion}")
 }
 
 // https://dingdingmin-back-end-developer.tistory.com/entry/Spring-Data-JPA-7-Querydsl-%EC%82%AC%EC%9A%A9-gradle-7x

@@ -226,20 +226,17 @@ public class MissionService {
     public List<MissionHistoryDto> selectMissionHistory(SessionUser sessionUser) {
         List<MissionHistoryDto> missionHistoryDtoList = new ArrayList<>();
         List<MissionHistory> missionHistoryList = jpaQueryFactory.selectFrom(missionHistory)
-                .join(mission)
-                    .on(missionHistory.missionId.eq(mission.missionId))
                 .join(user)
-                    .on(mission.user.userId.eq(user.userId))
+                    .on(missionHistory.user.userId.eq(user.userId))
                 .where(user.userId.email.eq(sessionUser.getEmail())
                         .and(user.userId.registrationId.eq(sessionUser.getRegistrationId())))
-                .orderBy(missionHistory.missionId.desc())
+                .orderBy(missionHistory.date.desc())
                 .limit(5)
                 .fetch();
 
         missionHistoryList.forEach(missionHistory -> {
             if (missionHistory != null) {
-                String strDate = missionHistory.getDate().substring(0, 4) + "-" + missionHistory.getDate().substring(4, 6)
-                        + "-" + missionHistory.getDate().substring(6, 8);
+                String strDate = LocalDate.parse(missionHistory.getDate(), DateTimeFormatter.BASIC_ISO_DATE).format(DateTimeFormatter.ISO_DATE);
                 String[] arrMissionType = MissionInfo.find(missionHistory.getMissionType()).name().split("_");
                 String strMissionType = arrMissionType[0] + "(" + arrMissionType[1] + ")";
 
@@ -256,7 +253,7 @@ public class MissionService {
     }
 
     public List<Tuple> selectLastMission(String lastMonthCondition, String thisMonthCondition) {
-        return jpaQueryFactory.select(user.userId, user.count())
+        return jpaQueryFactory.select(user, user.count())
                 .from(missionDetail)
                 .join(mission)
                     .on(missionDetail.missionDetailId.missionDetailId.eq(mission.missionId))

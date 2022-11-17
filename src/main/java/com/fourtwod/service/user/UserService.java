@@ -37,6 +37,12 @@ public class UserService {
 
     @Transactional
     public ResponseCode checkOrUpdateNickName(int flag, String nickname, SessionUser user) {
+        // flag 체크
+        switch (flag) {
+            case 0: case 1: break;
+            default: return ResponseCode.COMM_E001;
+        }
+
         String registrationId = user.getRegistrationId();
         User userByEmail = userRepository.findByUserId(UserId.builder()
                 .email(user.getEmail())
@@ -78,8 +84,6 @@ public class UserService {
 
             httpSession.setAttribute("user", sessionUser);
             userByEmail.updateNickname(nickname);
-        } else if (flag != 0) {
-            return ResponseCode.COMM_E001;
         }
 
         return ResponseCode.COMM_S000;

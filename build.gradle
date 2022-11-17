@@ -40,6 +40,7 @@ repositories {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.junit.jupiter:junit-jupiter:5.8.1')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
     // Gradle 6 이상부터는 아래와 같이 명시한다. (현 프로젝트는 7)

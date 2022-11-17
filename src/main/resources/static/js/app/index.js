@@ -40,6 +40,10 @@ var main = {
                 var rendered = Mustache.render(template, data);
                 $('#rankBox').html(rendered);
 
+                if (data.tier === 'unranked') {
+                  $('.layout_exp').addClass('hide')
+                }
+
                 $('#rankBox').removeClass('hide')
             } else {
                 _this.util.alertMessage(response.message);
@@ -89,6 +93,7 @@ var main = {
         });
     },
     setMission: function (missionType) {
+        $('#mission_popup').removeClass('view');
         if (missionType !== undefined && missionType.trim() !== '') {
             $.ajax({
                 type: 'POST',
@@ -98,7 +103,8 @@ var main = {
             }).done(function(response) {
                 if (response.code == 0) {
                     console.log(response)
-                    main.getMission();
+                    main.getRankInfo()
+                    main.getMission()
                 } else {
                     _this.util.alertMessage(response.message);
                 }

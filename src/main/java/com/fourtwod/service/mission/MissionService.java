@@ -163,8 +163,8 @@ public class MissionService {
             startLimit = localDateTime.withHour(18).withMinute(0).withSecond(0).withNano(0);
             endLimit = localDateTime.plusDays(1).withHour(0).withSecond(0).withSecond(30).withNano(0);
         }*/
-        startLimit = localDateTime.minusDays(1);
-        endLimit = localDateTime.plusDays(1);
+        startLimit = localDateTime.minusDays(8);
+        endLimit = localDateTime.plusDays(8);
 
         if (!(localDateTime.isAfter(startLimit) && localDateTime.isBefore(endLimit))) {
             return ResponseCode.MISS_E001;

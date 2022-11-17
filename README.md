@@ -6,7 +6,7 @@
 > #### Travis 연동 (구)
 ![image](https://user-images.githubusercontent.com/12378642/194440433-f72b1a77-d639-494a-a2fb-4fffffa5ddf2.png)
 > #### Jenkins 연동 (현재)
-![image](https://user-images.githubusercontent.com/12378642/202331682-87ce8baf-0fbc-4cd1-a213-99f910e97d5c.png)
+![image](https://user-images.githubusercontent.com/12378642/202334409-3993e04d-a9bb-4c54-ab59-fe3d0c01d6bf.png)
 
 ### 2. 사용 기술
   * Spring Boot 2.1.7

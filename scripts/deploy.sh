@@ -28,6 +28,10 @@ echo "> Git Pull"
 
 git pull
 
+echo "> 프로젝트 Test 시작"
+
+./gradlew test
+
 echo "> 프로젝트 Build 시작"
 
 ./gradlew build
@@ -60,14 +64,12 @@ nohup java -jar \
     -Dspring.profiles.active=$IDLE_PROFILE \
     $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
 
-sleep 10
+sleep 5
 
 #health 처리
 echo "> Health Check Start!"
 echo "> IDLE_PORT: $IDLE_PORT"
 echo "> curl -s http://localhost:$IDLE_PORT/profile "
-
-sleep 10
 
 for RETRY_COUNT in {1..10}
 do

@@ -92,7 +92,6 @@ public class SchedulerFacade {
                     TierInfo afterTierInfo = TierInfo.findByTierPoint(afterTierRealPoint);
                     user.updateTierInfo(afterTierInfo.getTier(), afterTierRealPoint - (afterTierRealPoint / 100 * 100));
 
-
                     // mission_history 저장
                     missionService.saveMissionHistory(MissionHistory.builder()
                             .missionType(missionType)

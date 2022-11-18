@@ -261,7 +261,8 @@ public class MissionService {
                     .on(mission.user.userId.eq(user.userId))
                 .groupBy(user.userId)
                 .where(mission.proceeding.eq(0)
-                        .and(mission.successFlag.eq(1))
+                        .and(missionDetail.afternoon.eq(1))
+                        .and(missionDetail.night.eq(1))
                         .and(missionDetail.missionDetailId.date.goe(lastMonthCondition))
                         .and(missionDetail.missionDetailId.date.lt(thisMonthCondition)))
                 .fetch();

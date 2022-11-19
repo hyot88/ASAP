@@ -105,7 +105,7 @@ public class UserService {
 
         // 응답 dto
         List<RankingDto> rankDtoList = new ArrayList<>();
-        List<User> userList;
+        List<User> userList = new ArrayList<>();
 
         // 랭크 조회
         // 전체 랭크
@@ -131,30 +131,30 @@ public class UserService {
                                 .and(mission.date.eq(_mission.getDate())))
                         .orderBy(user.tier.desc(), user.tierPoint.desc(), user.nickname.asc())
                         .fetch();
+            }
+        }
 
-                for (int i = 1; i <= userList.size(); i++) {
-                    User _user = userList.get(i - 1);
+        for (int i = 1; i <= userList.size(); i++) {
+            User _user = userList.get(i - 1);
 
-                    // 20등까지만 추가
-                    if (i <= 20) {
-                        rankDtoList.add(RankingDto.builder()
-                                .ranking(i)
-                                .tier(_user.getTier())
-                                .tierPoint(_user.getTierPoint())
-                                .nickname(_user.getNickname())
-                                .build());
-                    } else {
-                        if (_user.getUserId().getEmail().equals(sessionUser.getEmail())
-                                && _user.getUserId().getRegistrationId().equals(sessionUser.getRegistrationId())) {
+            // 20등까지만 추가
+            if (i <= 20) {
+                rankDtoList.add(RankingDto.builder()
+                        .ranking(i)
+                        .tier(_user.getTier())
+                        .tierPoint(_user.getTierPoint())
+                        .nickname(_user.getNickname())
+                        .build());
+            } else {
+                if (_user.getUserId().getEmail().equals(sessionUser.getEmail())
+                        && _user.getUserId().getRegistrationId().equals(sessionUser.getRegistrationId())) {
 
-                            rankDtoList.add(RankingDto.builder()
-                                    .ranking(i)
-                                    .tier(_user.getTier())
-                                    .tierPoint(_user.getTierPoint())
-                                    .nickname(_user.getNickname())
-                                    .build());
-                        }
-                    }
+                    rankDtoList.add(RankingDto.builder()
+                            .ranking(i)
+                            .tier(_user.getTier())
+                            .tierPoint(_user.getTierPoint())
+                            .nickname(_user.getNickname())
+                            .build());
                 }
             }
         }

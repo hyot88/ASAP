@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,6 +46,7 @@ public class UserApiControllerTest {
     private String email = "test@google.com";
     private String registrationId = "google";
     private String name = "테스터";
+    private String nickname = "초기값";
 
     @Before
     @Transactional
@@ -56,14 +58,34 @@ public class UserApiControllerTest {
                         .registrationId(registrationId)
                         .build())
                 .name(name)
+                .nickname(nickname)
                 .tier(17)
                 .tierPoint(81)
                 .role(Role.USER)
                 .build());
     }
+
+    @Test
+    public void user_유저정보조회() throws Exception {
+        // HttpSession 세팅
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("user", SessionUser.builder()
+                .email(email)
+                .registrationId(registrationId)
+                .build());
+
+        mvc.perform(get("/api/user")
+                        .session(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.name", is(name)))
+                .andExpect(jsonPath("$.data.nickname", is(nickname)))
+                .andExpect(jsonPath("$.data.tier", is("diamond3")))
+                .andExpect(jsonPath("$.data.nextTier", is("DIAMOND 2")))
+                .andExpect(jsonPath("$.data.tierPoint", is(81)));
+    }
     
     @Test
-    public void user_닉네임체크() throws Exception {
+    public void user_닉네임체크저장() throws Exception {
         // request body
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("nickname", "test");

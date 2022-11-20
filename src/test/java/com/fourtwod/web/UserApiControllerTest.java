@@ -77,6 +77,7 @@ public class UserApiControllerTest {
         mvc.perform(get("/api/user")
                         .session(session))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.COMM_S000.getCode())))
                 .andExpect(jsonPath("$.data.name", is(name)))
                 .andExpect(jsonPath("$.data.nickname", is(nickname)))
                 .andExpect(jsonPath("$.data.tier", is("diamond3")))

@@ -2,12 +2,12 @@ package com.fourtwod.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fourtwod.config.auth.dto.SessionUser;
-import com.fourtwod.domain.mission.Mission;
 import com.fourtwod.domain.mission.MissionRepository;
 import com.fourtwod.domain.user.Role;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
 import com.fourtwod.domain.user.UserRepository;
+import com.fourtwod.web.handler.ResponseCode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,6 +76,7 @@ public class UserApiControllerRankListTest2 {
         mvc.perform(get("/api/user/rank/0")
                         .session(session))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.COMM_S000.getCode())))
                 .andExpect(jsonPath("$.data", hasSize(21)))
                 .andExpect(jsonPath("$.data[19].nickname", is("f이름")))
                 .andExpect(jsonPath("$.data[20].ranking", is(24)))
@@ -90,6 +91,7 @@ public class UserApiControllerRankListTest2 {
         mvc.perform(get("/api/user/rank/0")
                         .session(session))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.COMM_S000.getCode())))
                 .andExpect(jsonPath("$.data", hasSize(20)))
                 .andExpect(jsonPath("$.data[14].nickname", is("k이름")));
     }

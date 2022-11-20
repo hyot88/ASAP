@@ -8,6 +8,7 @@ import com.fourtwod.domain.user.Role;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
 import com.fourtwod.domain.user.UserRepository;
+import com.fourtwod.web.handler.ResponseCode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -132,6 +133,7 @@ public class UserApiControllerRankListTest1 {
         mvc.perform(get("/api/user/rank/0")
                         .session(session))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.COMM_S000.getCode())))
                 .andExpect(jsonPath("$.data[0].ranking", is(1)))
                 .andExpect(jsonPath("$.data[0].tier", is(11)))
                 .andExpect(jsonPath("$.data[0].tierPoint", is(78)))
@@ -153,6 +155,7 @@ public class UserApiControllerRankListTest1 {
         mvc.perform(get("/api/user/rank/1")
                         .session(session))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.COMM_S000.getCode())))
                 .andExpect(jsonPath("$.data[0].ranking", is(1)))
                 .andExpect(jsonPath("$.data[0].tier", is(7)))
                 .andExpect(jsonPath("$.data[0].tierPoint", is(43)))

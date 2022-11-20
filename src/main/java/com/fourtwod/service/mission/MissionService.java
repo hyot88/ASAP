@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,6 +38,8 @@ public class MissionService {
 
     private final MissionHistoryRepository missionHistoryRepository;
     private final JPAQueryFactory jpaQueryFactory;
+
+    private final Clock clock;
 
     @Transactional
     public MissionDto selectMissionInProgress(SessionUser sessionUser) {
@@ -151,22 +154,19 @@ public class MissionService {
         }
 
         // 참여 가능한 시간 체크
-        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime = LocalDateTime.now(clock);
         LocalDateTime startLimit;
         LocalDateTime endLimit;
 
-        //TODO: 테스트를 위해 참여 가능 시간을 임시로 변경함
-        /*if (time == 0) {
+        if (time == 0) {
             startLimit = localDateTime.withHour(6).withMinute(0).withSecond(0).withNano(0);
             endLimit = localDateTime.withHour(12).withSecond(0).withSecond(30).withNano(0);
         } else {
             startLimit = localDateTime.withHour(18).withMinute(0).withSecond(0).withNano(0);
             endLimit = localDateTime.plusDays(1).withHour(0).withSecond(0).withSecond(30).withNano(0);
-        }*/
-        startLimit = localDateTime.minusDays(8);
-        endLimit = localDateTime.plusDays(8);
+        }
 
-        if (!(localDateTime.isAfter(startLimit) && localDateTime.isBefore(endLimit))) {
+        if (!(localDateTime.compareTo(startLimit) >= 0 && localDateTime.compareTo(endLimit) <= 0)) {
             return ResponseCode.MISS_E001;
         }
 

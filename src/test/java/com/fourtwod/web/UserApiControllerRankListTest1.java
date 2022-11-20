@@ -121,6 +121,7 @@ public class UserApiControllerRankListTest1 {
     }
 
     @Test
+    @Transactional
     public void user_랭크리스트조회1() throws Exception {
         // HttpSession 세팅
         MockHttpSession session = new MockHttpSession();

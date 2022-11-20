@@ -66,6 +66,7 @@ public class UserApiControllerTest {
     }
 
     @Test
+    @Transactional
     public void user_유저정보조회() throws Exception {
         // HttpSession 세팅
         MockHttpSession session = new MockHttpSession();
@@ -86,6 +87,7 @@ public class UserApiControllerTest {
     }
     
     @Test
+    @Transactional
     public void user_닉네임체크저장() throws Exception {
         // request body
         Map<String, String> paramMap = new HashMap<>();

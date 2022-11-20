@@ -65,7 +65,8 @@ public class MissionApiControllerTest {
     }
 
     @Test
-    public void user_진행중인미션조회_미션생성() throws Exception {
+    @Transactional
+    public void user_진행중인미션조회_미션생성_Took가능여부() throws Exception {
         // HttpSession 세팅
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("user", SessionUser.builder()
@@ -169,5 +170,42 @@ public class MissionApiControllerTest {
                         .session(session))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code", is(ResponseCode.COMM_S000.getCode())));
+    }
+
+    @Test
+    @Transactional
+    public void user_Took파라미터_미션참여변경여부() throws Exception {
+        // HttpSession 세팅
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("user", SessionUser.builder()
+                .email(email)
+                .registrationId(registrationId)
+                .build());
+
+        LocalDate localDate = LocalDate.now();
+        ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
+
+        // date 체크 오류
+        mvc.perform(patch("/api/mission/202211211/0")
+                        .session(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.COMM_E002.getCode())));
+
+        // time 체크 오류
+        mvc.perform(patch("/api/mission/20221121/2")
+                        .session(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.COMM_E002.getCode())));
+
+
+        // clock을 참여되는 오전 타임으로 모킹
+        given(clock.instant())
+                .willReturn(localDate.atTime(6, 0).toInstant(zoneOffset));
+
+        // Took 던지기 (미션이 없어서 변경 이력이 없음)
+        mvc.perform(patch("/api/mission/" + localDate.format(DateTimeFormatter.BASIC_ISO_DATE) + "/0")
+                        .session(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.MISS_E002.getCode())));
     }
 }

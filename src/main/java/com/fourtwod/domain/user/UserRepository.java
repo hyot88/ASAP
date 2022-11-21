@@ -1,6 +1,5 @@
 package com.fourtwod.domain.user;
 
-import com.fourtwod.domain.mission.Mission;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

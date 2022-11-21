@@ -4,6 +4,7 @@ import com.fourtwod.config.auth.dto.SessionUser;
 import com.fourtwod.domain.mission.*;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
+import com.fourtwod.domain.user.UserRepository;
 import com.fourtwod.service.MissionInfo;
 import com.fourtwod.web.dto.MissionDto;
 import com.fourtwod.web.dto.MissionHistoryDto;
@@ -35,9 +36,10 @@ public class MissionService {
 
     private final MissionRepository missionRepository;
     private final MissionDetailRepository missionDetailRepository;
-
     private final MissionHistoryRepository missionHistoryRepository;
     private final JPAQueryFactory jpaQueryFactory;
+
+    private final UserRepository userRepository;
 
     private final Clock clock;
 
@@ -85,12 +87,14 @@ public class MissionService {
             default: return new ApiResult<>(ResponseCode.COMM_E002);
         }
 
-        User user = User.builder()
-                .userId(UserId.builder()
-                        .email(sessionUser.getEmail())
-                        .registrationId(sessionUser.getRegistrationId())
-                        .build())
-                .build();
+        User user = userRepository.findByUserId(UserId.builder()
+                .email(sessionUser.getEmail())
+                .registrationId(sessionUser.getRegistrationId())
+                .build()).orElse(null);
+
+        if (user == null) {
+            return new ApiResult<>(ResponseCode.COMM_E001);
+        }
 
         // 진행중 미션 여부 체크
         Mission missionInProgress = missionRepository.findByUserAndProceeding(user, 1).orElse(null);
@@ -230,7 +234,7 @@ public class MissionService {
                     .on(missionHistory.user.userId.eq(user.userId))
                 .where(user.userId.email.eq(sessionUser.getEmail())
                         .and(user.userId.registrationId.eq(sessionUser.getRegistrationId())))
-                .orderBy(missionHistory.date.desc())
+                .orderBy(missionHistory.missionHistoryId.desc())
                 .limit(5)
                 .fetch();
 

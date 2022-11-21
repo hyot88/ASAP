@@ -5,6 +5,7 @@ import com.fourtwod.domain.user.Role;
 import com.fourtwod.domain.user.User;
 import com.fourtwod.domain.user.UserId;
 import com.fourtwod.domain.user.UserRepository;
+import com.fourtwod.scheduler.facade.SchedulerFacade;
 import com.fourtwod.web.handler.ResponseCode;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +42,9 @@ public class MissionApiControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SchedulerFacade schedulerFacade;
+
     @SpyBean
     private Clock clock;
 
@@ -51,7 +55,7 @@ public class MissionApiControllerTest {
     @Transactional
     public void before() {
         // 사용자 저장
-        User user = userRepository.save(User.builder()
+        User user = userRepository.saveAndFlush(User.builder()
                 .userId(UserId.builder()
                         .email(email)
                         .registrationId(registrationId)
@@ -207,5 +211,37 @@ public class MissionApiControllerTest {
                         .session(session))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code", is(ResponseCode.MISS_E002.getCode())));
+    }
+
+    @Test
+    @Transactional
+    public void user_미션히스토리조회() throws Exception {
+        // HttpSession 세팅
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("user", SessionUser.builder()
+                .email(email)
+                .registrationId(registrationId)
+                .build());
+
+        // 총 6번 미션을 생성했다가 데일리 스케줄러 실행
+        for (int i = 0; i < 6; i++) {
+            int missionType = 1;
+
+            if (i == 5) {
+                missionType = 7;
+            }
+
+            mvc.perform(post("/api/mission/" + missionType)
+                    .session(session))
+                    .andExpect(status().isOk());
+            schedulerFacade.dailySchedule();
+        }
+
+        mvc.perform(get("/api/mission/history")
+                .session(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code", is(ResponseCode.COMM_S000.getCode())))
+                .andExpect(jsonPath("$.data", hasSize(5)))
+                .andExpect(jsonPath("$.data[0].missionType", is("Quick(7Day)")));
     }
 }

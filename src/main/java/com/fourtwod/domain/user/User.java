@@ -1,7 +1,10 @@
 package com.fourtwod.domain.user;
 
 import com.fourtwod.domain.BaseTimeEntity;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 

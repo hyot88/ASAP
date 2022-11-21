@@ -1,10 +1,12 @@
 package com.fourtwod.domain.mission;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
 import java.io.Serializable;
 
 @Data

@@ -4,14 +4,6 @@ var main = {
 
         _this.getRankInfo()
         _this.getMission()
-
-        $('#alertCancelBtn').on('click', function () {
-            $('#mission_popup').removeClass('view');
-        });
-
-        $('#alertOkBtn').on('click', function () {
-            _this.setMission($('#missionDay').text());
-        });
     },
     proc : function () {
     },
@@ -26,10 +18,6 @@ var main = {
                 console.log(response)
                 var info = response.data;
 
-                var template = $('#rankBox-template').html();
-                template = template.replaceAll('{', '{{').replaceAll('}', '}}')
-                Mustache.parse(template);
-
                 var data = {
                      tier: info.tier || 'unranked',
                      nextTier: info.nextTier || '',
@@ -37,14 +25,11 @@ var main = {
                      nickname: info.nickname || ''
                 };
 
-                var rendered = Mustache.render(template, data);
-                $('#rankBox').html(rendered);
+                common.setTemplate('rankBox', 'rankBox', data)
 
                 if (data.tier === 'unranked') {
                   $('.layout_exp').addClass('hide')
                 }
-
-                $('#rankBox').removeClass('hide')
             } else {
                 _this.util.alertMessage(response.message);
             }
@@ -62,27 +47,47 @@ var main = {
             if (response.code == 0) {
                 console.log(response)
                 var info = response.data.detail || [];
-                var template = '';
+                var missionType = response.data.missionType || 0;
                 var data = {};
 
                 if (info.length > 0) {
-                    template = $('#progressMissionBox-template').html();
-                } else {
-                    template = $('#noProgressMissionBox-template').html();
-                }
-                Mustache.parse(template);
-                var rendered = Mustache.render(template, data);
-                $('#missionBox').html(rendered);
+                    var missionBasicInfo = {
+                      1: {
+                        mission_day: 'Tick 1 Day',
+                        mission_day_img: 'mission_day_1'
+                      },
+                      3: {
+                        mission_day: 'Tick 3 Day',
+                        mission_day_img: 'mission_day_3'
+                      },
+                      5: {
+                        mission_day: 'Quick 5 Day',
+                        mission_day_img: 'mission_day_5'
+                      },
+                      7: {
+                        mission_day: 'Quick 7 Day',
+                        mission_day_img: 'mission_day_7'
+                      }
+                    }
 
-                $('#missionBox').removeClass('hide')
+                    data = {
+                      missionDay: missionBasicInfo[missionType].mission_day,
+                      missionDayImg: missionBasicInfo[missionType].mission_day_img,
+                      startDate: common.dateFormat(info[0].date),
+                      endDate: common.dateFormat(info[info.length - 1].date)
+                    }
+                    common.setTemplate('progressMissionBox', 'missionBox', {})
+                    common.setTemplate('nowMission', 'nowMission', data)
+                } else {
+                    common.setTemplate('noProgressMissionBox', 'missionBox', {})
+                }
 
                 $('.mission_day').click(function (e) {
                     e.preventDefault()
 
                     var missionDay = $(this).attr('data-day');
                     if (missionDay) {
-                      $('#missionDay').text(missionDay);
-                      $('#mission_popup').addClass('view');
+                      location.href = '/mission/join/' + missionDay
                     }
                 })
             } else {
@@ -93,18 +98,16 @@ var main = {
         });
     },
     setMission: function (missionType) {
-        $('#mission_popup').removeClass('view');
-        if (missionType !== undefined && missionType.trim() !== '') {
+        if (missionType !== undefined) {
             $.ajax({
                 type: 'POST',
-                url: 'api/mission/' + missionType,
+                url: '/api/mission/' + missionType,
                 dataType: 'json',
                 contentType:'application/json; charset=utf-8',
             }).done(function(response) {
                 if (response.code == 0) {
                     console.log(response)
-                    main.getRankInfo()
-                    main.getMission()
+                    location.href = "/"
                 } else {
                     _this.util.alertMessage(response.message);
                 }

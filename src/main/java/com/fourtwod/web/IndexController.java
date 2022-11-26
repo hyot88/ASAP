@@ -40,4 +40,18 @@ public class IndexController {
             return "redirect:/";
         }
     }
+
+    @GetMapping("/mission/join/{type}")
+    public String joinMission(Model model, @LoginUser SessionUser user) {
+        if (user != null ) {
+            if (user.getNickname() != null) {
+                model.addAttribute("nickname", user.getNickname());
+                return "joinMission";
+            } else {
+                return "redirect:/nickname";
+            }
+        } else {
+            return "login";
+        }
+    }
 }

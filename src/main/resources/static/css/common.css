@@ -32,3 +32,387 @@ a {
     background: black;
   }
 }
+
+:root {
+  --black:
+rgba(0, 0, 0, 1);
+  --asapblack:
+rgba(22, 22, 22, 1);
+  --stack:
+rgba(140, 140, 140, 1);
+  --mischka:
+rgba(208, 205, 214, 0.698);
+  --asapgray-1:
+rgba(208, 205, 214, 1);
+  --asapgray-2:
+rgba(237, 235, 245, 1);
+  --asapred:
+rgba(255, 45, 85, 1);
+  --french-rose:
+rgba(255, 74, 139, 1);
+  --tulip:
+rgba(255, 125, 151, 0.4);
+  --asappink:
+rgba(255, 126, 151, 1);
+  --white-4:
+rgba(255, 255, 255, 0.6);
+  --white-22:
+rgba(255, 255, 255, 0.698);
+  --white-3:
+rgba(255, 255, 255, 0.8);
+  --white2:
+rgba(255, 255, 255, 1);
+
+  --font-size-xs: 10px;
+  --font-size-m: 13px;
+  --font-size-xxxl: 110px;
+  --font-size-xxxl: 24px;
+  --font-size-xxxl: 40px;
+  --font-size-s2: 14px;
+  --font-size-m3: 15px;
+  --font-size-m2: 16px;
+  --font-size-l2: 17px;
+  --font-size-m22: 12px;
+  --font-size-xl2: 32px;
+  --font-size-xxl2: 20px;
+  --font-size-xxl3: 36px;
+  --font-size-xxxl2: 28px;
+
+  --font-family-noto_sans_kr: "Noto Sans KR";
+  --font-family-noto_sans_kr-black: "Noto Sans KR-Black";
+  --font-family-noto_sans_kr-light: "Noto Sans KR-Light";
+  --font-family-noto_sans_kr-medium: "Noto Sans KR-Medium";
+  --font-family-raleway: "Raleway";
+  --font-family-raleway-blackitalic: "Raleway-BlackItalic";
+  --font-family-raleway-bolditalic: "Raleway-BoldItalic";
+  --font-family-raleway-extrabolditalic: "Raleway-ExtraBoldItalic";
+  --font-family-raleway-medium: "Raleway-Medium";
+  --font-family-raleway-regular: "Raleway-Regular";
+  --font-family-roboto: "Roboto";
+  --font-family-roboto-medium: "Roboto-Medium";
+}
+
+
+
+.notosanskr-normal-white-14px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-s2);
+  font-weight: 400;
+  font-style: normal;
+}
+.notosanskr-normal-tulip-16px {
+  color: var(--asappink);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m2);
+  font-weight: 400;
+  font-style: normal;
+}
+.notosanskr-normal-stack-13px {
+  color: var(--stack);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+  font-style: normal;
+}
+.notosanskr-bold-black-16px {
+  color: var(--black);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m2);
+  font-weight: 700;
+  font-style: normal;
+}
+.notosanskr-light-white-14px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr-light);
+  font-size: var(--font-size-s2);
+  font-weight: 300;
+  font-style: normal;
+}
+.notosanskr-bold-white-13px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m);
+  font-weight: 700;
+  font-style: normal;
+}
+.raleway-blackitalic-black-french-rose-40px {
+  color: var(--french-rose);
+  font-family: var(--font-family-raleway-blackitalic);
+  font-size: 40px;
+  font-weight: 900;
+  font-style: italic;
+}
+.raleway-extra-bold-white-110px {
+  color: var(--white-4);
+  font-family: var(--font-family-raleway);
+  font-size: var(--font-size-xxxl);
+  font-weight: 800;
+  font-style: italic;
+}
+.notosanskr-normal-mischka-12px {
+  color: var(--mischka);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m22);
+  font-weight: 400;
+  font-style: normal;
+}
+.notosanskr-black-white-28px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr-black);
+  font-size: 28px;
+  font-weight: 900;
+  font-style: normal;
+}
+.notosanskr-black-white-32px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xl2);
+  font-weight: 900;
+  font-style: normal;
+}
+.raleway-black-white-40px {
+  color: var(--white2);
+  font-family: var(--font-family-raleway);
+  font-size: 40px;
+  font-weight: 900;
+  font-style: italic;
+}
+.notosanskr-bold-white-15px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m3);
+  font-weight: 700;
+  font-style: normal;
+}
+.notosanskr-medium-french-rose-12px {
+  color: var(--french-rose);
+  font-family: var(--font-family-noto_sans_kr-medium);
+  font-size: var(--font-size-m22);
+  font-weight: 500;
+  font-style: normal;
+}
+.notosanskr-normal-white-12px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m22);
+  font-weight: 400;
+  font-style: normal;
+}
+.notosanskr-medium-white-16px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr-medium);
+  font-size: var(--font-size-m2);
+  font-weight: 500;
+  font-style: normal;
+}
+.notosanskr-medium-white-18px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+}
+.notosanskr-medium-white-16px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m2);
+  font-weight: 500;
+  font-style: normal;
+}
+.raleway-extrabolditalic-extra-bold-white-110px {
+  color: var(--white-3);
+  font-family: var(--font-family-raleway-extrabolditalic);
+  font-size: 110px;
+  font-weight: 800;
+  font-style: italic;
+}
+.notosanskr-normal-white-16px {
+  color: var(--white-3);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m2);
+  font-weight: 400;
+  font-style: normal;
+}
+.raleway-extra-bold-white-64px {
+  color: var(--white-3);
+  font-family: var(--font-family-raleway);
+  font-size: 64px;
+  font-weight: 800;
+  font-style: italic;
+}
+.notosanskr-light-white-16px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m2);
+  font-weight: 300;
+  font-style: normal;
+}
+.notosanskr-medium-white-17px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: 17px;
+  font-weight: 500;
+  font-style: normal;
+}
+.notosanskr-medium-white-18px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr-medium);
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+}
+.notosanskr-light-white-14px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-s2);
+  font-weight: 300;
+  font-style: normal;
+}
+.notosanskr-medium-white-10px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: 10px;
+  font-weight: 500;
+  font-style: normal;
+}
+.raleway-medium-white-36px {
+  color: var(--white-22);
+  font-family: var(--font-family-raleway);
+  font-size: var(--font-size-xxl3);
+  font-weight: 500;
+  font-style: normal;
+}
+.raleway-regular-normal-white-36px {
+  color: var(--white-22);
+  font-family: var(--font-family-raleway-regular);
+  font-size: 36px;
+  font-weight: 400;
+  font-style: normal;
+}
+.notosanskr-light-white-16px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr-light);
+  font-size: var(--font-size-m2);
+  font-weight: 300;
+  font-style: normal;
+}
+.notosanskr-bold-black-20px {
+  color: var(--black);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xxl2);
+  font-weight: 700;
+  font-style: normal;
+}
+.notosanskr-medium-white-17px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr-medium);
+  font-size: 17px;
+  font-weight: 500;
+  font-style: normal;
+}
+.raleway-normal-white-36px {
+  color: var(--white-22);
+  font-family: var(--font-family-raleway);
+  font-size: 36px;
+  font-weight: 400;
+  font-style: normal;
+}
+.notosanskr-bold-white-32px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xl2);
+  font-weight: 700;
+  font-style: normal;
+}
+.raleway-extrabolditalic-extra-bold-white-64px {
+  color: var(--white-3);
+  font-family: var(--font-family-raleway-extrabolditalic);
+  font-size: 64px;
+  font-weight: 800;
+  font-style: italic;
+}
+.notosanskr-black-white-28px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: 28px;
+  font-weight: 900;
+  font-style: normal;
+}
+.notosanskr-bold-white-20px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-xxl2);
+  font-weight: 700;
+  font-style: normal;
+}
+.notosanskr-bold-white-22px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: 22px;
+  font-weight: 700;
+  font-style: normal;
+}
+.notosanskr-medium-white-10px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr-medium);
+  font-size: 10px;
+  font-weight: 500;
+  font-style: normal;
+}
+.raleway-black-french-rose-40px {
+  color: var(--french-rose);
+  font-family: var(--font-family-raleway);
+  font-size: 40px;
+  font-weight: 900;
+  font-style: italic;
+}
+.notosanskr-medium-french-rose-12px {
+  color: var(--french-rose);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m22);
+  font-weight: 500;
+  font-style: normal;
+}
+.notosanskr-normal-mischka-15px {
+  color: var(--asapgray-1);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m3);
+  font-weight: 400;
+  font-style: normal;
+}
+.raleway-extra-bold-white-110px {
+  color: var(--white-3);
+  font-family: var(--font-family-raleway);
+  font-size: 110px;
+  font-weight: 800;
+  font-style: italic;
+}
+.raleway-medium-white-36px {
+  color: var(--white-22);
+  font-family: var(--font-family-raleway-medium);
+  font-size: 36px;
+  font-weight: 500;
+  font-style: normal;
+}
+.notosanskr-bold-white-13px-2 {
+  color: var(--white-22);
+  font-family: var(--font-family-noto_sans_kr);
+  font-size: var(--font-size-m);
+  font-weight: 700;
+  font-style: normal;
+}
+.raleway-blackitalic-black-white-40px {
+  color: var(--white2);
+  font-family: var(--font-family-raleway-blackitalic);
+  font-size: 40px;
+  font-weight: 900;
+  font-style: italic;
+}
+.notosanskr-black-white-32px {
+  color: var(--white2);
+  font-family: var(--font-family-noto_sans_kr-black);
+  font-size: var(--font-size-xl2);
+  font-weight: 900;
+  font-style: normal;
+}

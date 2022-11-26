@@ -3,21 +3,7 @@
   {{>layout/topMenu}}
   <div id="rankBox" class="rank_-box hide"></div>
   <div id="missionBox" class="hide"></div>
-</div>
-<div class="missionPopupWrapper" id="mission_popup" role="dialog" aria-modal="true" style="">
-  <div class="missionPopupWrap">
-    <div class="innerWrap">
-      <b id="missionDay"></b>day Mission을<br/>시작 하시겠습니까?
-      <div class="bottomWrap">
-        <div class="col">
-          <img id="alertCancelBtn" src="/images/login/btn_cancel.png" width="134" height="41"/>
-        </div>
-        <div class="col">
-          <img id="alertOkBtn" src="/images/login/btn_ok.png" width="134" height="41"/>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div id="nowMission" class="fixed_down group-5-DFxYYl"></div>
 </div>
 {{>layout/footerIndex}}
 
@@ -92,7 +78,33 @@
   </div>
 </script>
 
-
 <script type="text/template" id="progressMissionBox-template">
-  <div>진행중인 미션이 있다...</div>
+  <div class="mission_row">
+    <div class="recently-added-1 valign-text-bottom">ㅡ Huick ㅡ</div>
+    <div class="flex-row">
+      <div class="flex-row-item mission_day half">
+        <img src="/images/index/mission/mission_day_half.png" width="100%"/>
+      </div>
+      <div class="flex-row-item mission_day full">
+        <img src="/images/index/mission/mission_day_full.png" width="100%"/>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" id="nowMission-template">
+  <div class="status_bar-sTaugI">
+    <div class="bg_bar-vOY1wm"></div>
+    <div class="process_bar-vOY1wm"></div>
+  </div>
+  <div class="status_mission-ebB8tc">
+    <div class="txt_sTaugI">
+      <div class="txt_title-sTaugI valign-text-bottom">{missionDay} Mission</div>
+      <div class="txt_date-sTaugI valign-text-bottom">{startDate}~{endDate}</div>
+    </div>
+    <div class="btn_detail-sTaugI">
+      <img class="key-sg8fOO" src="/images/index/detail_btn.png" alt="Key" />
+    </div>
+    <img class="icon_3day-sTaugI" src="/images/index/mission/s/{missionDayImg}.png" alt="{missionDay}" />
+  </div>
 </script>
